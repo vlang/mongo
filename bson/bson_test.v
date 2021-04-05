@@ -1,4 +1,4 @@
-import bson
+module bson
 
 struct Test {
 	str string
