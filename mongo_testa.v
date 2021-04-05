@@ -1,5 +1,6 @@
 module mongo
 
+/*
 import mongo.bson
 
 const (

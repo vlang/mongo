@@ -1,4 +1,4 @@
-module mongo
+module bson
 
 /*
 pub fn (value string) bson_type() voidptr
