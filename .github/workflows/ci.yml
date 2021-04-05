@@ -30,6 +30,7 @@ jobs:
           sudo ./v symlink
       - name: Install Mongo dependencies
         run: |
+          cd ./vlib/mongo/
           sudo make install
       - name: Test
         run: |
