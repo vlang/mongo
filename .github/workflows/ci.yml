@@ -20,7 +20,7 @@ jobs:
         uses: actions/checkout@v2
         with:
           path: vlib/mongo
-      - name: Install dependencies
+      - name: Install V dependencies
         run: |
           sudo apt-get update
           sudo apt-get install --quiet -y libglfw3-dev libxi-dev libxcursor-dev
@@ -28,6 +28,9 @@ jobs:
         run: |
           make
           sudo ./v symlink
+      - name: Install Mongo dependencies
+        run: |
+          sudo make install
       - name: Test
         run: |
           cd ./vlib/mongo/
