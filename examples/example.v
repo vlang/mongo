@@ -1,7 +1,7 @@
 module main
 
 import mongo
-import bson
+import mongo.bson
 import json
 
 struct App {

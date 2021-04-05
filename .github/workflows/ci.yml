@@ -9,7 +9,7 @@ on:
       - "**.md"
 
 jobs:
-  ubuntu:
+  tests:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout V
