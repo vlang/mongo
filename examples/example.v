@@ -4,10 +4,10 @@ import mongo
 import bson
 import json
 
-struct User {
+struct App {
 pub:
-	first_name string
-	last_name  string
+	code string
+	version  string
 }
 
 fn main() {
@@ -16,13 +16,12 @@ fn main() {
 	client := mongo.client_new_from_uri(mongo_uri)
 	collection := mongo.client_get_collection(client, 'db_name', 'users')
 
-	// creating User to encode it in JSON
-	user := User{
-		first_name: 'Alexandr'
-		last_name: 'Pashkevich'
+	app := App{
+		code: 'V'
+		version: '0.2.2'
 	}
 
-	user_bson := bson.new_from_json(json.encode(user))
+	user_bson := bson.new_from_json(json.encode(app))
 
 	mongo.collection_insert_one(collection, user_bson)
 }
