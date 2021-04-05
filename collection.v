@@ -1,5 +1,9 @@
 module mongo
 
+pub fn client_get_collection(client &C.mongoc_client_t, db_name string, collection_name string) &C.mongoc_collection_t {
+	return C.mongoc_client_get_collection(client, db_name.str, collection_name.str)
+}
+
 pub fn collection_insert_one(collection &C.mongoc_collection_t, document &C.bson_t) bool {
 	return C.mongoc_collection_insert_one(collection, document, 0, 0, 0)
 }

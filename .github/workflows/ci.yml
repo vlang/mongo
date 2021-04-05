@@ -28,6 +28,14 @@ jobs:
         run: |
           make
           sudo ./v symlink
+      - name: Test
+        run: |
+          cd ./vlib/mongo/
+          v test .
+      - name: Build Mongo shared lib
+        run: |
+          cd ./vlib/mongo/
+          v -shared .
       - name: Build Mongo example
         run: |
           cd ./vlib/mongo/examples/
