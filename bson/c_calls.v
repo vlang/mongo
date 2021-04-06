@@ -1,7 +1,7 @@
 module bson
 
 #flag -I @VROOT/thirdparty/bson
-#flag @VROOT/thirdparty/libbson-1.0.so
+#flag @VROOT/thirdparty/libbson-1.0.so.0
 #include <bson.h>
 
 /**		BSON		**/

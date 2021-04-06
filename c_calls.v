@@ -1,7 +1,7 @@
 module mongo
 
 #flag -I @VROOT/thirdparty/mongoc
-#flag @VROOT/thirdparty/libmongoc-1.0.so
+#flag @VROOT/thirdparty/libmongoc-1.0.so.0
 #include <mongoc.h>
 
 /**		MONGOC		**/
