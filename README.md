@@ -1,6 +1,17 @@
 **VMongo**
 mongo drive for vlang
 
+### Roadmap:
+- [x] `add basic fn to wrap mongo and bson`
+- [ ] `add sugar fn to get fields of bson`
+- [ ] `define required tasks to get a complete use of mongo with V`
+- [ ] `add more sugar fn` (Ex: collection.insert<T>(t T) inserts a V Struct in a collection)
+- [ ] `add bulk query support` (Ex: insert_many)
+- [ ] `separate bson into a submodule of mongo`
+Future:
+- [ ] `Build a native bson  vlang library`
+- [ ] `Build a native mongo vlang library`
+
 **Dependencies**
 
 - libmongoc
@@ -65,7 +76,7 @@ mongo drive for vlang
   bson_doc := mongo.new_from_json('{"heeey": "howudoinggggg =)"}')
   ```
 
-- update value by selector and update :frog:
+- update value by selector and update
   ```v
   selector := mongo.new_from_json('{"key":"value1"}')
   update := mongo.new_from_json('{"\$set":{"value":"key1"}}')
