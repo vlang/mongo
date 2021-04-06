@@ -8,6 +8,17 @@ pub fn (collection &C.mongoc_collection_t) insert_one(document &C.bson_t) bool {
 	return C.mongoc_collection_insert_one(collection, document, 0, 0, 0)
 }
 
+//TODO fix it
+/*
+pub fn (collection &C.mongoc_collection_t) insert_many(documents []&C.bson_t) bool {
+	return C.mongoc_collection_insert_many(collection, documents.data, documents.len, 0, 0)
+}
+*/
+
+pub fn (collection &C.mongoc_collection_t) find(query &C.bson_t) &C.mongoc_cursor_t {
+	return C.mongoc_collection_find(collection, .no_cursor_timeout, 0, 0, 0, query, 0, 0)
+}
+
 pub fn (collection &C.mongoc_collection_t) find_with_opts(filter &C.bson_t) &C.mongoc_cursor_t {
 	return C.mongoc_collection_find_with_opts(collection, filter, 0, 0)
 }

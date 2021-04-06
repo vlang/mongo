@@ -10,11 +10,11 @@ mongo drive for vlang
 **Examples**
 
 - connect to mongo
-    ```v
+  ```v
+  mongo_uri := mongo.uri_new('mongodb://127.0.0.1:27017')
+  client := mongo_uri.new_client()
+  ```
 
-    mongo_uri := mongo.uri_new('mongodb://127.0.0.1:27017')
-    client := mongo_uri.new_client()
-    ```
 - select database
   ```v
   database := client.get_database('db_name')

@@ -1,6 +1,6 @@
 # bson module docs
 
-bson module is a wrapper for Clang [libbson](http://mongoc.org/libbson/current/api.html)
+mongo.bson module is a wrapper for Clang [libbson](http://mongoc.org/libbson/current/api.html)
 
 ## C definitions
 ### [Structures](../bson/structs_native.v)

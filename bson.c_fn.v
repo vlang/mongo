@@ -4,7 +4,7 @@ module mongo
 #flag -lbson-1.0
 #include "mongoc/mongoc.h"
 
-/**		BSON		**/
+
 fn C.bson_as_json(&C.bson_t, int) byteptr
 fn C.bson_as_relaxed_extended_json(&C.bson_t, int) byteptr
 fn C.bson_compare(&C.bson_t, &C.bson_t) int
