@@ -1,5 +1,3 @@
-module main
-
 import mongo
 import mongo.bson
 import json

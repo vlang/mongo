@@ -32,3 +32,4 @@ fn test_delete() {
 	collection_insert_one(collection, doc)
 	assert collection_delete_one(collection, doc) == true
 }
+*/

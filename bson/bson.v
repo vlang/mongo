@@ -1,7 +1,5 @@
 module bson
 
-import json
-
 pub fn new() &C.bson_t {
 	return C.bson_new()
 }

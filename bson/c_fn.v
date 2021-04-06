@@ -108,6 +108,22 @@ fn C.bson_append_utf8(&C.bson_t, byteptr, int, byteptr, int) bool
 // http://mongoc.org/libbson/current/bson_append_value.html
 fn C.bson_append_value(&C.bson_t, byteptr, int, &C.bson_value_t) bool
 
+// bson_oid_t http://mongoc.org/libbson/current/bson_oid_t.html
+fn C.bson_oid_compare(&C.bson_oid_t, &C.bson_oid_t) int
+fn C.bson_oid_copy(&C.bson_oid_t, &C.bson_oid_t)
+fn C.bson_oid_equal(&C.bson_oid_t, &C.bson_oid_t) bool
+fn C.bson_oid_get_time_t(&C.bson_oid_t) int
+fn C.bson_oid_hash(&C.bson_oid_t) u32
+fn C.bson_oid_init_from_data(&C.bson_oid_t, byte)
+fn C.bson_oid_init_from_string(&C.bson_oid_t, byteptr)
+
+// DEPRECATED: bson_oid_init_sequence
+fn C.bson_oid_is_valid(charptr, int) bool
+fn C.bson_oid_to_string(&C.bson_oid_t, charptr)
+
+fn C.bson_oid_init(&C.bson_oid_t, &C.bson_context_t)
+
+
 
 // TODO: not implemented
 // fn bson_append_timeval
@@ -125,20 +141,3 @@ fn C.bson_append_value(&C.bson_t, byteptr, int, &C.bson_value_t) bool
 // fn bson_append_dbpointer
 // fn bson_array_as_json
 // fn bson_append_iter
-
-//
-// bson_oid_t http://mongoc.org/libbson/current/bson_oid_t.html
-//
-fn C.bson_oid_compare(&C.bson_oid_t, &C.bson_oid_t) int
-fn C.bson_oid_copy(&C.bson_oid_t, &C.bson_oid_t)
-fn C.bson_oid_equal(&C.bson_oid_t, &C.bson_oid_t) bool
-fn C.bson_oid_get_time_t(&C.bson_oid_t) int
-fn C.bson_oid_hash(&C.bson_oid_t) u32
-fn C.bson_oid_init_from_data(&C.bson_oid_t, byte)
-fn C.bson_oid_init_from_string(&C.bson_oid_t, byteptr)
-
-// DEPRECATED: bson_oid_init_sequence
-fn C.bson_oid_is_valid(charptr, int) bool
-fn C.bson_oid_to_string(&C.bson_oid_t, charptr)
-
-fn C.bson_oid_init(&C.bson_oid_t, &C.bson_context_t)

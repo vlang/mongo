@@ -1,5 +1,9 @@
 module mongo
 
+pub fn (collection &C.mongoc_collection_t) count_documents(filter &C.bson_t) i64 {
+	return C.mongoc_collection_count_documents(collection, filter, 0, 0, 0, 0)
+}
+
 pub fn (collection &C.mongoc_collection_t) insert_one(document &C.bson_t) bool {
 	return C.mongoc_collection_insert_one(collection, document, 0, 0, 0)
 }
