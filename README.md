@@ -1,5 +1,5 @@
-**VMongo**
-mongo drive for vlang
+**Mongo**
+MongoDB drive for vlang
 
 ### Roadmap:
 - [x] `add basic fn to wrap mongo and bson`
