@@ -1,4 +1,4 @@
-module bson
+module mongo
 
 // http://mongoc.org/libbson/current/bson_t.html
 pub struct C.bson_t {}

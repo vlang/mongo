@@ -1,6 +1,9 @@
-module bson
+module mongo
 
-pub fn new() &C.bson_t {
+import json
+
+//TODO rename to new() when move it to submodule bson
+pub fn new_bson() &C.bson_t {
 	return C.bson_new()
 }
 

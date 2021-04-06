@@ -1,8 +1,8 @@
-module bson
+module mongo
 
-#flag -I @VROOT/thirdparty/bson
-#flag @VROOT/thirdparty/libbson-1.0.so.0
-#include <bson.h>
+#flag -I/usr/local/include/libbson-1.0
+#flag -lbson-1.0
+#include "mongoc/mongoc.h"
 
 /**		BSON		**/
 fn C.bson_as_json(&C.bson_t, int) byteptr

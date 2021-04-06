@@ -6,66 +6,57 @@ mongo drive for vlang
 - libmongoc
 - libbson
 
-**Modules**
-
-- [bson](docs/bson.md)
-- [mongo](docs/mongo.md)
-
 
 **Examples**
 
 - connect to mongo
     ```v
-    uri := 'mongodb://127.0.0.1:27017'
-    mongo.initialize()
 
-    mongo_uri := mongo.uri_new(uri)
-    client := mongo.client_new_from_uri(mongo_uri)
+    mongo_uri := mongo.uri_new('mongodb://127.0.0.1:27017')
+    client := mongo_uri.new_client()
     ```
 - select database
   ```v
-  database := mongo.client_get_database(client, 'db_name')
+  database := client.get_database('db_name')
   ```
 
 - select collection
   ```v
-  collection := mongo.client_get_collection(client, 'db_name', 'collection_name')
+  collection := client.get_collection('db_name', 'collection_name')
   ```
 
 - create new BSON document
   ```v
-  bson_document := bson.new()
+  bson_document := mongo.new_from_json('{}')
   ```
 
 - append bool field to BSON document
   ```v
-  bson.append_bool(bson_document, 'key' false)
+  bson_document.append_bool('key' false)
   ```
   you can add field of any type you want, checkout [here](bson/funcs_append.v)
 
 - insert one document
     ```v
-    uri := 'mongodb://127.0.0.1:27017'
-    mongo.initialize()
-
-    mongo_uri := mongo.uri_new(uri)
-    client := mongo.client_new_from_uri(mongo_uri)
-    collection := mongo.client_get_collection(client, 'db_name', 'collection_name')
-    bson_document := bson.new()
-    bson.append_bool(bson_document, 'key' false)
-    mongo.collection_insert_one (collection, bson_document)
+    mongo_uri := mongo.uri_new('mongodb://127.0.0.1:27017')
+    client := mongo_uri.new_client()
+    collection := client.get_collection('db_name', collection_name')
+    bson_document := mongo.new_bson()
+    bson_document.append_bool('key' false)
+    collection.insert_one(bson_document)
     ```
 
 - find documents by query
     ```v
-    query := bson.new()
-    bson_doc := bson.new()
-    bson.append_bool(query, 'bool', true)
+    query := mongo.new_bson()
+    query.append_bool('bool', true)
 
-    cursor := mongo.collection_find_with_opts(collection, query)
+    bson_doc := mongo.new_bson()
 
-    for mongo.cursor_next(cursor, &bson_doc) {
-        str := bson.as_canonical_extended_json(bson_doc)
+    cursor := collection.find_with_opts(query)
+
+    for cursor.next(&bson_doc) {
+        str := mongo.as_canonical_extended_json(bson_doc)
         println(str)
     }
     ```

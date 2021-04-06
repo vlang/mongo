@@ -19,3 +19,7 @@ pub fn (collection &C.mongoc_collection_t) update_one(selector &C.bson_t, update
 pub fn (collection &C.mongoc_collection_t) delete_one(selector &C.bson_t) bool {
 	return C.mongoc_collection_delete_one(collection, selector, 0, 0, 0)
 }
+
+pub fn (collection &C.mongoc_collection_t) destroy() {
+	C.mongoc_collection_destroy(collection)
+}

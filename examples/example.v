@@ -1,5 +1,4 @@
 import mongo
-import mongo.bson
 import json
 
 struct App {
@@ -9,10 +8,9 @@ pub:
 }
 
 fn main() {
-	uri := 'mongodb://127.0.0.1:27017'
-	mongo_uri := mongo.uri_new(uri)
-	client := mongo.client_new_from_uri(mongo_uri)
-	collection := mongo.client_get_collection(client, 'db_name', 'users')
+	mongo_uri := mongo.uri_new('mongodb://127.0.0.1:27017')
+	client := mongo_uri.new_client()
+	collection := client.get_collection('db_name', 'users')
 
 	app := App{
 		code: 'V'

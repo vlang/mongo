@@ -1,4 +1,4 @@
-module bson
+module mongo
 
 pub fn (document &C.bson_t) append_array(key string, array &C.bson_t) bool {
 	return C.bson_append_array(document, key.str, -1, array)

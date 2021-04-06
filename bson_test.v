@@ -1,4 +1,4 @@
-module bson
+module mongo
 
 struct Test {
 	str string
