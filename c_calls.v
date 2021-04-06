@@ -1,9 +1,8 @@
 module mongo
 
-#flag linux -lpthread
-#flag linux -lmongoc-1.0
-#flag linux -I /usr/local/include/libmongoc-1.0
-#include <mongoc/mongoc.h>
+#flag -I @VROOT/thirdparty/mongoc
+#flag @VROOT/thirdparty/libmongoc-1.0.so
+#include <mongoc.h>
 
 /**		MONGOC		**/
 fn C.mongoc_init() voidptr

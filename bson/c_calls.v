@@ -1,8 +1,8 @@
 module bson
 
-#flag linux -lbson-1.0
-#flag linux -I /usr/local/include/libbson-1.0
-#include <bson/bson.h>
+#flag -I @VROOT/thirdparty/bson
+#flag @VROOT/thirdparty/libbson-1.0.so
+#include <bson.h>
 
 /**		BSON		**/
 fn C.bson_as_json(&C.bson_t, int) byteptr
