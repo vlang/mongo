@@ -70,5 +70,5 @@ mongo drive for vlang
   selector := mongo.new_from_json('{"key":"value1"}')
   update := mongo.new_from_json('{"\$set":{"value":"key1"}}')
 
-  mongo.collection_update_one(collection, selector, update)
+  collection.update_one(collection, selector, update)
   ```
