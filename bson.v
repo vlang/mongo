@@ -8,10 +8,14 @@ pub fn new_bson() &C.bson_t {
 }
 
 pub fn new_from_json(json_data string) &C.bson_t {
-	return C.bson_new_from_json(json_data.str, -1, 0)
+	return C.bson_new_from_json(json_data.str, json_data.len, 0)
 }
 
-pub fn to_json<T>(t T) &C.bson_t {
+pub fn (document &C.bson_t) reinit() {
+	C.bson_reinit(document)
+}
+
+pub fn to_bson<T>(t T) &C.bson_t {
 	return C.bson_new_from_json(json.encode(t).str, -1, 0)
 }
 

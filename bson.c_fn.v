@@ -5,6 +5,8 @@ module mongo
 #include "mongoc/mongoc.h"
 
 
+fn C.bson_init_from_json(&C.bson_t, byteptr, int, &C.bson_error_t) bool
+fn C.bson_reinit(&C.bson_t)
 fn C.bson_as_json(&C.bson_t, int) byteptr
 fn C.bson_as_relaxed_extended_json(&C.bson_t, int) byteptr
 fn C.bson_compare(&C.bson_t, &C.bson_t) int
@@ -20,7 +22,6 @@ fn C.bson_new() &C.bson_t
 fn C.bson_destroy(&C.bson_t)
 fn C.bson_free(voidptr)
 fn C.bson_as_canonical_extended_json(&C.bson_t, int) byteptr
-fn C.bson_init_from_json(&C.bson_t, byteptr, int, &C.bson_error_t) bool
 fn C.bson_new_from_json(byteptr, int, &C.bson_error_t) &C.bson_t
 
 // appends
@@ -116,6 +117,7 @@ fn C.bson_oid_get_time_t(&C.bson_oid_t) int
 fn C.bson_oid_hash(&C.bson_oid_t) u32
 fn C.bson_oid_init_from_data(&C.bson_oid_t, byte)
 fn C.bson_oid_init_from_string(&C.bson_oid_t, byteptr)
+fn C.bson_iter_find_descendant(&&C.bson_iter_t, &&char, &&bson_iter_t)
 
 // DEPRECATED: bson_oid_init_sequence
 fn C.bson_oid_is_valid(charptr, int) bool

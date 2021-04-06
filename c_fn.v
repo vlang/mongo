@@ -34,5 +34,5 @@ fn C.mongoc_collection_destroy(&C.mongoc_collection_t) voidptr
 fn C.mongoc_client_get_database(&C.mongoc_client_t, byteptr) &C.mongoc_database_t
 fn C.mongoc_database_destroy(&C.mongoc_database_t) voidptr
 
-fn C.mongoc_cursor_next(&C.mongoc_cursor_t, &C.bson_t) bool
+fn C.mongoc_cursor_next(&C.mongoc_cursor_t, &&C.bson_t) bool
 fn C.mongoc_cleanup() voidptr

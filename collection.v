@@ -1,5 +1,7 @@
 module mongo
 
+import json
+
 pub fn (collection &C.mongoc_collection_t) count_documents(filter &C.bson_t) i64 {
 	return C.mongoc_collection_count_documents(collection, filter, 0, 0, 0, 0)
 }
@@ -33,4 +35,11 @@ pub fn (collection &C.mongoc_collection_t) delete_one(selector &C.bson_t) bool {
 
 pub fn (collection &C.mongoc_collection_t) destroy() {
 	C.mongoc_collection_destroy(collection)
+}
+
+
+/**   sugar fn   **/
+pub fn (collection &C.mongoc_collection_t) insert<T>(t T) bool {
+	document := C.bson_new_from_json(json.encode(t).str, -1, 0)
+	return C.mongoc_collection_insert_one(collection, document, 0, 0, 0)
 }
