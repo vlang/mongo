@@ -1,6 +1,7 @@
-module mongo
 
+module mongo
 /*
+
 pub fn (value string) bson_type() voidptr
 {
 	return C.BCON_UTF8(value.str)

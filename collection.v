@@ -40,6 +40,7 @@ pub fn (collection &C.mongoc_collection_t) destroy() {
 
 /**   sugar fn   **/
 pub fn (collection &C.mongoc_collection_t) insert<T>(t T) bool {
-	document := C.bson_new_from_json(json.encode(t).str, -1, 0)
+	json_str := json.encode(t)
+	document := C.bson_new_from_json(json_str.str, json_str.len, 0)
 	return C.mongoc_collection_insert_one(collection, document, 0, 0, 0)
 }

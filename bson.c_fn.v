@@ -1,10 +1,5 @@
 module mongo
 
-#flag -I/usr/local/include/libbson-1.0
-#flag -lbson-1.0
-#include "mongoc/mongoc.h"
-
-
 fn C.bson_init_from_json(&C.bson_t, byteptr, int, &C.bson_error_t) bool
 fn C.bson_reinit(&C.bson_t)
 fn C.bson_as_json(&C.bson_t, int) byteptr

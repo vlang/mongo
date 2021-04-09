@@ -19,6 +19,12 @@ pub fn to_bson<T>(t T) &C.bson_t {
 	return C.bson_new_from_json(json.encode(t).str, -1, 0)
 }
 
+pub fn (document &C.bson_t) to<T>() ?T {
+	doc := document.str()
+	println('tp: $doc')
+	return json.decode(T, doc)
+}
+
 pub fn (document &C.bson_t) destroy() {
 	C.bson_destroy(document)
 }
