@@ -41,13 +41,13 @@ pub fn (document &C.bson_t) as_canonical_extended_json() string {
 
 pub fn (document &C.bson_t) str() string {
 	return unsafe {
-		C.bson_as_json(document, 0).vstring()
+		C.bson_as_canonical_extended_json(document, 0).vstring()
 	}
 }
 
 pub fn (document &C.bson_t) as_json() string {
 	return unsafe {
-		C.bson_as_json(document, 0).vstring()
+		C.bson_as_canonical_extended_json(document, 0).vstring()
 	}
 }
 
