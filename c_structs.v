@@ -3,6 +3,9 @@ module mongo
 // http://mongoc.org/libmongoc/current/mongoc_client_t.html
 pub struct C.mongoc_client_t {}
 
+// http://mongoc.org/libmongoc/current/mongoc_client_pool_new.html
+pub struct C.mongoc_client_pool_t {}
+
 // http://mongoc.org/libmongoc/current/mongoc_database_t.html
 pub struct C.mongoc_database_t {}
 
