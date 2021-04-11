@@ -1,5 +1,7 @@
 module mongo
 
+fn C.bson_new() &C.bson_t
+fn C.bson_new_from_json(byteptr, int, &C.bson_error_t) &C.bson_t
 fn C.bson_init_from_json(&C.bson_t, byteptr, int, &C.bson_error_t) bool
 fn C.bson_reinit(&C.bson_t)
 fn C.bson_as_json(&C.bson_t, int) byteptr
@@ -13,11 +15,9 @@ fn C.bson_count_keys(&C.bson_t) u32
 fn C.bson_equal(&C.bson_t, &C.bson_t) bool
 fn C.bson_get_data(&C.bson_t) byte
 fn C.bson_has_field(&C.bson_t, byteptr) bool
-fn C.bson_new() &C.bson_t
-fn C.bson_destroy(&C.bson_t)
 fn C.bson_free(voidptr)
 fn C.bson_as_canonical_extended_json(&C.bson_t, int) byteptr
-fn C.bson_new_from_json(byteptr, int, &C.bson_error_t) &C.bson_t
+fn C.bson_destroy(&C.bson_t)
 
 // appends
 // http://mongoc.org/libbson/current/bson_append_array.html

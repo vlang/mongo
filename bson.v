@@ -7,22 +7,18 @@ pub fn new_bson() &C.bson_t {
 	return C.bson_new()
 }
 
+[inline]
+pub fn new_from<T>(t T) &C.bson_t {
+	json_data := json.encode(t)
+	return C.bson_new_from_json(json_data.str, json_data.len, 0)
+}
+
 pub fn new_from_json(json_data string) &C.bson_t {
 	return C.bson_new_from_json(json_data.str, json_data.len, 0)
 }
 
 pub fn (document &C.bson_t) reinit() {
 	C.bson_reinit(document)
-}
-
-pub fn to_bson<T>(t T) &C.bson_t {
-	return C.bson_new_from_json(json.encode(t).str, -1, 0)
-}
-
-pub fn (document &C.bson_t) to<T>() ?T {
-	doc := document.str()
-	println('tp: $doc')
-	return json.decode(T, doc)
 }
 
 pub fn (document &C.bson_t) destroy() {
@@ -41,13 +37,13 @@ pub fn (document &C.bson_t) as_canonical_extended_json() string {
 
 pub fn (document &C.bson_t) str() string {
 	return unsafe {
-		C.bson_as_canonical_extended_json(document, 0).vstring()
+		C.bson_as_json(document, 0).vstring()
 	}
 }
 
 pub fn (document &C.bson_t) as_json() string {
 	return unsafe {
-		C.bson_as_canonical_extended_json(document, 0).vstring()
+		C.bson_as_json(document, 0).vstring()
 	}
 }
 
@@ -95,4 +91,16 @@ pub fn (document &C.bson_t) has_field(field string) bool {
 
 pub fn (document &C.bson_t) equal(b &C.bson_t) bool {
 	return C.bson_equal(document, b)
+}
+
+
+/**    sugar fn    **/
+pub fn to_bson<T>(t T) &C.bson_t {
+	return C.bson_new_from_json(json.encode(t).str, -1, 0)
+}
+
+pub fn (document &C.bson_t) to<T>() ?T {
+	doc := document.str()
+	println('tp: $doc')
+	return json.decode(T, doc)
 }

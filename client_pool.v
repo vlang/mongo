@@ -14,3 +14,8 @@ pub fn (pool &C.mongoc_client_pool_t) pop_client() &C.mongoc_client_t {
 pub fn (pool &C.mongoc_client_pool_t) push_client(client &C.mongoc_client_t) {
 	C.mongoc_client_pool_push(pool, client)
 }
+
+[inline]
+pub fn (pool &C.mongoc_client_pool_t) destroy() {
+	C.mongoc_client_pool_destroy(pool)
+}

@@ -12,8 +12,8 @@ pub struct C.bson_subtype_t {}
 // http://mongoc.org/libbson/current/bson_context_t.html
 pub struct C.bson_context_t {}
 
-// http://mongoc.org/libbson/current/bson_subtype_t.html
-pub struct C.bson_subtyper_t {}
+// http://mongoc.org/libbson/current/bson_type_t.html
+pub struct C.bson_type_t {}
 
 // http://mongoc.org/libbson/current/bson_decimal128_t.html
 pub struct C.bson_decimal128_t {}

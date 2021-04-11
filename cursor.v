@@ -7,9 +7,9 @@ pub fn (cursor &C.mongoc_cursor_t) next_doc(document &&C.bson_t) bool {
 	return C.mongoc_cursor_next(cursor, document)
 }
 
-// Get the next document parsing it with the arg structure type and setting it
+// Get the next document parsing it with the arg struct type and setting it
 pub fn (cursor &C.mongoc_cursor_t) next<T>(mut t T) ?bool {
-	document := C.bson_new()
+	document := new_bson()
 	if !cursor.next_doc(&document) {
 		return false
 	}
@@ -17,4 +17,14 @@ pub fn (cursor &C.mongoc_cursor_t) next<T>(mut t T) ?bool {
 	str := document.str()
 	t = json.decode(T, str) ?
 	return true
+}
+
+// Checks if a cursor has errors
+[inline]
+pub fn (cursor &C.mongoc_cursor_t) has_error(bson &C.bson_t) bool {
+	return C.mongoc_cursor_error(cursor, 0)
+}
+
+pub fn (cursor &C.mongoc_cursor_t) destroy() {
+	C.mongoc_cursor_destroy(cursor)
 }
