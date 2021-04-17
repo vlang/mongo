@@ -41,6 +41,10 @@ pub fn (collection &C.mongoc_collection_t) delete_one(selector &C.bson_t) bool {
 	return C.mongoc_collection_delete_one(collection, selector, 0, 0, 0)
 }
 
+pub fn (collection &C.mongoc_collection_t) create_bulk_operation() &C.mongoc_bulk_operation_t {
+	return C.mongoc_collection_create_bulk_operation_with_opts(collection, 0)
+}
+
 pub fn (collection &C.mongoc_collection_t) destroy() {
 	C.mongoc_collection_destroy(collection)
 }

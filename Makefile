@@ -1,3 +1,4 @@
+.DEFAULT_GOAL := install
 build:
 	apt install cmake libssl-dev libsasl2-dev
 	wget -O mongo-c-driver.tar.gz https://github.com/mongodb/mongo-c-driver/releases/download/1.16.2/mongo-c-driver-1.16.2.tar.gz # Check for the latest version

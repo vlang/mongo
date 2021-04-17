@@ -12,6 +12,9 @@ pub struct C.mongoc_database_t {}
 // http://mongoc.org/libmongoc/current/mongoc_collection_t.html
 pub struct C.mongoc_collection_t {}
 
+// http://mongoc.org/libmongoc/current/mongoc_write_concern_t.html
+pub struct C.mongoc_write_concern_t {}
+
 // http://mongoc.org/libmongoc/current/mongoc_uri_t.html
 pub struct C.mongoc_uri_t {}
 
@@ -23,3 +26,9 @@ pub struct C.mongoc_query_flags_t {}
 
 // http://mongoc.org/libmongoc/current/mongoc_read_prefs_t.html
 pub struct C.mongoc_read_prefs_t {}
+
+// http://mongoc.org/libmongoc/current/mongoc_stream_t.html
+pub struct C.mongoc_stream_t{}
+
+// http://mongoc.org/libmongoc/current/mongoc_stream_file_t.html
+pub struct C.mongoc_stream_file_t {}
