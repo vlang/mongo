@@ -1,8 +1,16 @@
 module mongo
 
 // TODO; bson_context_t as second arg
+/*
+pub fn new_oid() &C.bson_oid_t {
+	oid := &C.bson_oid_t{}
+	C.bson_oid_init(oid, 0)
+	return oid
+}
+*/
+
 pub fn (oid &C.bson_oid_t) init() {
-	C.bson_oid_init(oid, C.NULL)
+	C.bson_oid_init(oid, 0)
 }
 
 pub fn (oid &C.bson_oid_t) init_from_data(data byte) {
