@@ -57,7 +57,7 @@ pub fn (collection &C.mongoc_collection_t) insert<T>(t T) bool {
 	return C.mongoc_collection_insert_one(collection, document, 0, 0, 0)
 }
 
-pub fn (collection &C.mongoc_collection_t) replace<T>(t T, selector &C.bson_t) bool {
+pub fn (collection &C.mongoc_collection_t) replace<T>(selector &C.bson_t, t T) bool {
 	json_str := json.encode(t)
 	document := C.bson_new_from_json(json_str.str, json_str.len, 0)
 	return C.mongoc_collection_replace_one(collection, selector, document, 0, 0, 0)
