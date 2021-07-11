@@ -21,6 +21,11 @@ pub fn (collection &C.mongoc_collection_t) find(query &C.bson_t) &C.mongoc_curso
 	return C.mongoc_collection_find(collection, .no_cursor_timeout, 0, 0, 0, query, 0, 0)
 }
 
+pub fn (collection &C.mongoc_collection_t) find_oid(oid string) &C.mongoc_cursor_t {
+	query := new_from_json('{"_id": {"\$oid": "$oid"}}')
+	return C.mongoc_collection_find(collection, .no_cursor_timeout, 0, 0, 0, query, 0, 0)
+}
+
 pub fn (collection &C.mongoc_collection_t) find_with_opts(filter &C.bson_t) &C.mongoc_cursor_t {
 	return C.mongoc_collection_find_with_opts(collection, filter, 0, 0)
 }
@@ -55,6 +60,11 @@ pub fn (collection &C.mongoc_collection_t) insert<T>(t T) bool {
 	json_str := json.encode(t)
 	document := C.bson_new_from_json(json_str.str, json_str.len, 0)
 	return C.mongoc_collection_insert_one(collection, document, 0, 0, 0)
+}
+
+pub fn (collection &C.mongoc_collection_t) replaceone<T>(oid string, t T) bool {
+	selector := new_bson_oid_filter(oid)
+	return collection.replace(selector, t)
 }
 
 pub fn (collection &C.mongoc_collection_t) replace<T>(selector &C.bson_t, t T) bool {

@@ -7,6 +7,12 @@ pub fn new_bson() &C.bson_t {
 	return C.bson_new()
 }
 
+pub fn new_bson_oid_filter(_oid string) &C.bson_t {
+	filter := new_from_json('{"_id": {"\$oid": "$_oid"}}')
+	println(filter.str())
+	return filter
+}
+
 [inline]
 pub fn new_from<T>(t T) &C.bson_t {
 	json_data := json.encode(t)
