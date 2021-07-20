@@ -64,7 +64,7 @@ pub fn (collection &C.mongoc_collection_t) insert<T>(t T) bool {
 
 pub fn (collection &C.mongoc_collection_t) replaceone<T>(oid string, t T) bool {
 	selector := new_bson_oid_filter(oid)
-	return collection.replace(selector, t)
+	return collection.replace<T>(selector, t)
 }
 
 pub fn (collection &C.mongoc_collection_t) replace<T>(selector &C.bson_t, t T) bool {
