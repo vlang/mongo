@@ -22,7 +22,7 @@ pub fn (collection &C.mongoc_collection_t) find(query &C.bson_t) &C.mongoc_curso
 }
 
 pub fn (collection &C.mongoc_collection_t) find_oid(oid string) &C.mongoc_cursor_t {
-	query := new_from_json('{"_id": {"\$oid": "$oid"}}')
+	query := new_bson_oid_filter(oid)
 	return C.mongoc_collection_find(collection, .no_cursor_timeout, 0, 0, 0, query, 0, 0)
 }
 
