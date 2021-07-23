@@ -90,3 +90,7 @@ pub fn (collection &C.mongoc_collection_t) update_opts<T>(selector &C.bson_t, op
 	document := C.bson_new_from_json(json_str.str, json_str.len, 0)
 	return C.mongoc_collection_update_one(collection, selector, document, opts, 0, 0)
 }
+
+pub fn (collection &C.mongoc_collection_t) delete(selector &C.bson_t) bool {
+	return C.mongoc_collection_delete_one(collection, selector, 0, 0, 0)
+}
