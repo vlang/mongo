@@ -18,6 +18,7 @@ pub fn new_from<T>(t T) &C.bson_t {
 	return C.bson_new_from_json(json_data.str, json_data.len, 0)
 }
 
+[inline]
 pub fn new_from_json(json_data string) &C.bson_t {
 	return C.bson_new_from_json(json_data.str, json_data.len, 0)
 }
