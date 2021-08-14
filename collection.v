@@ -26,8 +26,8 @@ pub fn (collection &C.mongoc_collection_t) find_oid(oid string) &C.mongoc_cursor
 	return C.mongoc_collection_find(collection, .no_cursor_timeout, 0, 0, 0, query, 0, 0)
 }
 
-pub fn (collection &C.mongoc_collection_t) find_with_opts(filter &C.bson_t) &C.mongoc_cursor_t {
-	return C.mongoc_collection_find_with_opts(collection, filter, 0, 0)
+pub fn (collection &C.mongoc_collection_t) find_with_opts(filter &C.bson_t, opts &C.bson_t) &C.mongoc_cursor_t {
+	return C.mongoc_collection_find_with_opts(collection, filter, opts, 0)
 }
 
 pub fn (collection &C.mongoc_collection_t) replace_one(selector &C.bson_t, update &C.bson_t) bool {
