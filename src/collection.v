@@ -2,7 +2,7 @@ module mongo
 
 import json
 
-pub fn (collection &C.mongoc_collection_t) count_documents(filter &C.bson_t) i64 {
+pub fn (collection &C.mongoc_collection_t) count(filter &C.bson_t) i64 {
 	return C.mongoc_collection_count_documents(collection, filter, 0, 0, 0, 0)
 }
 
