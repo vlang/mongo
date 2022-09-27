@@ -1,6 +1,15 @@
 **Mongo**
 MongoDB driver for vlang
 
+### Getting start:
+``` bash
+v install mongo
+```
+
+``` bash
+sudo apt-get install libmongoc-dev 
+```
+
 ### Roadmap:
 - [x] `add basic fn to wrap mongo and bson`
 - [ ] `add sugar fn to get fields of bson`

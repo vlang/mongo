@@ -30,6 +30,7 @@ fn C.mongoc_collection_find(&C.mongoc_collection_t, &QueryFlags, u32, u32, u32, 
 fn C.mongoc_collection_find_with_opts(&C.mongoc_collection_t, &C.bson_t, &C.bson_t, &C.mongoc_read_prefs_t) &C.mongoc_cursor_t
 
 fn C.mongoc_collection_keys_to_index_string(&C.bson_t) byteptr
+
 // TODO implement
 fn C.mongoc_collection_find_and_modify(&C.mongoc_collection_t, &C.bson_t, &C.bson_t, &C.bson_t, &C.bson_t, bool, bool, bool, &C.bson_t, &C.bson_error_t) bool
 fn C.mongoc_collection_replace_one(&C.mongoc_collection_t, &C.bson_t, &C.bson_t, &C.bson_t, &C.bson_t, &C.bson_error_t) bool
@@ -53,7 +54,8 @@ fn C.mongoc_cursor_set_limit(&C.mongoc_cursor_t, int) bool
 fn C.mongoc_cursor_clone(&C.mongoc_cursor_t) &C.mongoc_cursor_t
 fn C.mongoc_cursor_error(&C.mongoc_cursor_t, &C.bson_t) bool
 fn C.mongoc_cursor_destroy(&C.mongoc_cursor_t)
-//fn C.mongoc_cursor_get_host(&C.mongoc_cursor_t)
+
+// fn C.mongoc_cursor_get_host(&C.mongoc_cursor_t)
 
 fn C.mongoc_stream_timed_out(&C.mongoc_stream_t) bool
 fn C.mongoc_stream_should_retry(&C.mongoc_stream_t) bool

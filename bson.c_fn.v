@@ -120,8 +120,6 @@ fn C.bson_oid_to_string(&C.bson_oid_t, charptr)
 
 fn C.bson_oid_init(&C.bson_oid_t, &C.bson_context_t)
 
-
-
 // TODO: not implemented
 // fn bson_append_timeval
 // fn bson_validate_with_error
