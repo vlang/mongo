@@ -7,7 +7,6 @@ pub fn (cursor &C.mongoc_cursor_t) next_doc(document &&C.bson_t) bool {
 	return C.mongoc_cursor_next(cursor, document)
 }
 
-
 pub fn (cursor &C.mongoc_cursor_t) limit(limit int) bool {
 	return C.mongoc_cursor_set_limit(cursor, limit)
 }
@@ -20,7 +19,7 @@ pub fn (cursor &C.mongoc_cursor_t) next<T>(mut t T) ?bool {
 	}
 	// declare str to avoid v errors
 	str := document.str()
-	t = json.decode(T, str) ?
+	t = json.decode(T, str)?
 	return true
 }
 

@@ -2,7 +2,7 @@ module mongo
 
 import json
 
-//TODO rename to new() when move it to submodule bson
+// TODO rename to new() when move it to submodule bson
 pub fn new_bson() &C.bson_t {
 	return C.bson_new()
 }
@@ -99,8 +99,7 @@ pub fn (document &C.bson_t) equal(b &C.bson_t) bool {
 	return C.bson_equal(document, b)
 }
 
-
-/**    sugar fn    **/
+//*    sugar fn    *
 pub fn to_bson<T>(t T) &C.bson_t {
 	return C.bson_new_from_json(json.encode(t).str, -1, 0)
 }

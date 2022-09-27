@@ -3,8 +3,8 @@ import json
 
 struct App {
 pub:
-	code string
-	version  string
+	code    string
+	version string
 }
 
 fn main() {
@@ -17,7 +17,9 @@ fn main() {
 		version: '0.2.2'
 	}
 
-	user_bson := bson.new_from_json(json.encode(app))
+	user_bson := mongo.new_from_json(json.encode(app))
 
-	mongo.collection_insert_one(collection, user_bson)
+	println(user_bson.str())
+
+	collection.insert_one(user_bson)
 }

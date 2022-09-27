@@ -28,7 +28,7 @@ pub struct C.mongoc_query_flags_t {}
 pub struct C.mongoc_read_prefs_t {}
 
 // http://mongoc.org/libmongoc/current/mongoc_stream_t.html
-pub struct C.mongoc_stream_t{}
+pub struct C.mongoc_stream_t {}
 
 // http://mongoc.org/libmongoc/current/mongoc_stream_file_t.html
 pub struct C.mongoc_stream_file_t {}

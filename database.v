@@ -2,7 +2,8 @@ module mongo
 
 [inline]
 pub fn (database &C.mongoc_database_t) write_command_with_opts(command &C.bson_t, opts &C.bson_t, result &C.bson_t) bool {
-	return C.mongoc_database_write_command_with_opts(database, command, opts, result, 0)
+	return C.mongoc_database_write_command_with_opts(database, command, opts, result,
+		0)
 }
 
 [inline]
@@ -22,7 +23,8 @@ pub fn (database &C.mongoc_database_t) add_user(user string, pass string, roles 
 
 [inline]
 pub fn (database &C.mongoc_database_t) add_user_opts(user string, pass string, roles &C.bson_t, custom_data &C.bson_t) bool {
-	return C.mongoc_database_add_user(database, user.str, pass.str, roles, custom_data, 0)
+	return C.mongoc_database_add_user(database, user.str, pass.str, roles, custom_data,
+		0)
 }
 
 [inline]

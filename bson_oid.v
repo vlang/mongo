@@ -45,5 +45,4 @@ pub fn (oid &C.bson_oid_t) str() string {
 	str := ''
 	C.bson_oid_to_string(oid, str.str)
 	return str
-
 }
