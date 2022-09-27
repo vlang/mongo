@@ -15,7 +15,7 @@ pub fn (document &C.bson_t) append_array_end(array_begin &C.bson_t) bool {
 // TODO fix
 // pub fn (document &C.bson_t) append_binary(key string, subtype C.bson_subtype_t, binary &byte, length u32) bool {
 //	return C.bson_append_binary(document, key.str, key.len, subtype, binary, length)
-//}
+// }
 
 pub fn (document &C.bson_t) append_bool(key string, value bool) bool {
 	return C.bson_append_bool(document, key.str, key.len, value)
