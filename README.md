@@ -84,7 +84,7 @@ v install mongo
   ```v
   mongo_uri := mongo.uri_new('mongodb://127.0.0.1:27017')
   client := mongo_uri.new_client()
-  collection := client.get_collection('db_name', 'collection_name')
+  collection := client.get_collection('db_name', 'collection_name') 
   bson_document := mongo.new_bson()
   bson_document.append_bool('key' false)
   collection.insert_one(bson_document)

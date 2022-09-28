@@ -1,6 +1,7 @@
 module mongo
 
 import json
+import x.json2
 
 [inline]
 pub fn (cursor &C.mongoc_cursor_t) next_doc(document &&C.bson_t) bool {
@@ -31,4 +32,17 @@ pub fn (cursor &C.mongoc_cursor_t) has_error(bson &C.bson_t) bool {
 
 pub fn (cursor &C.mongoc_cursor_t) destroy() {
 	C.mongoc_cursor_destroy(cursor)
+}
+
+pub fn (cursor &C.mongoc_cursor_t) lean() []json2.Any {
+	mut response := []json2.Any{}
+
+	document := new_bson()
+
+	for cursor.next_doc(&document) {
+		json_doc := document.str()
+		raw_mp := json2.raw_decode(json_doc) or {continue}
+		response << raw_mp.as_map()
+	}
+	return response
 }

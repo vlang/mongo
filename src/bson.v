@@ -13,7 +13,7 @@ pub fn new_bson_oid_filter(_oid string) &C.bson_t {
 }
 
 [inline]
-pub fn new_from<T>(t T) &C.bson_t {
+pub fn new_bson_from<T>(t T) &C.bson_t {
 	json_data := json.encode(t)
 	return C.bson_new_from_json(json_data.str, json_data.len, 0)
 }
