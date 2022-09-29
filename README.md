@@ -64,7 +64,6 @@ collection.insert_one({
   'number':  2
   'float':   2.1
   'boolean': true
-  'foo':     child
 })
 
 // find collection
