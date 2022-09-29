@@ -1,10 +1,11 @@
 import mongo
-import time
+import x.json2
 
-struct App {
-pub:
-	code    string
-	version string
+struct Test {
+	str     string
+	number  int
+	float   f64
+	boolean bool
 }
 
 fn main() {
@@ -14,14 +15,32 @@ fn main() {
 
 	collection := client.get_collection('vlang', 'mongo-test')
 
-	app := App{
-		code: 'V'
-		version: '0.2.2'
+	test := Test{
+		str: 'string'
+		number: int(2)
+		float: f64(2.1)
+		boolean: true
 	}
 
-	user_bson := mongo.new_bson_from<App>(app)
+	struct_bson := mongo.new_bson_from<Test>(test)
+	json_bson := mongo.new_from_json('{"str":"string","number":2,"float":2.1,"boolean":true}')
 
-	collection.insert_one<&bson_t>(user_bson)
+	child := json2.Any({
+		'bar': json2.Any(10)
+	})
 
-	collection.destroy()
+	collection.insert_one({
+		'str':     'string'
+		'number':  2
+		'float':   2.1
+		'boolean': true
+		'foo':     child
+	})
+
+	collection.insert_one_from<Test>(test)
+	collection.insert_one_from_bson_t(struct_bson)
+	collection.insert_one_from_bson_t(json_bson)
+
+	struct_bson.destroy()
+	json_bson.destroy()
 }
