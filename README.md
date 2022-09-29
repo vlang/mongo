@@ -71,6 +71,6 @@ response := collection.find({
   'str': 'string'
 }).lean()
 
-assert response.as_map()['str'] or { 0 }.str() == 'string'
+assert response[0].as_map()['str'] or { 0 }.str() == 'string'
 
 ```
