@@ -26,6 +26,8 @@ fn C.mongoc_client_pool_destroy(&C.mongoc_client_pool_t)
 fn C.mongoc_client_get_database(&C.mongoc_client_t, byteptr) &C.mongoc_database_t
 fn C.mongoc_client_get_collection(&C.mongoc_client_t, byteptr, byteptr) &C.mongoc_collection_t
 
+//	This function is deprecated and should not be used in new code.
+//	Use the more convenient mongoc_collection_find_with_opts() instead.
 fn C.mongoc_collection_find(&C.mongoc_collection_t, &QueryFlags, u32, u32, u32, &C.bson_t, &C.bson_t, &C.mongoc_read_prefs_t) &C.mongoc_cursor_t
 fn C.mongoc_collection_find_with_opts(&C.mongoc_collection_t, &C.bson_t, &C.bson_t, &C.mongoc_read_prefs_t) &C.mongoc_cursor_t
 
