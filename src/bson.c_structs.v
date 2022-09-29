@@ -1,7 +1,12 @@
 module mongo
 
 // http://mongoc.org/libbson/current/bson_t.html
-pub struct C.bson_t {}
+[typedef]
+pub struct C.bson_t {
+	flags   u32 // Internal flags for the bson_t.
+	len     u32 // Length of BSON data.
+	padding u8  // Padding for stack allocation.
+}
 
 // http://mongoc.org/libbson/current/bson_oid_t.html
 pub struct C.bson_oid_t {}
@@ -25,4 +30,9 @@ pub struct C.bson_iter_t {}
 pub struct C.bson_value_t {}
 
 // http://mongoc.org/libbson/current/bson_error_t.html
-pub struct C.bson_error_t {}
+[typedef]
+pub struct C.bson_error_t {
+	domain  u32
+	code    u32
+	message charptr
+}
