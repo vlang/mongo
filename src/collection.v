@@ -2,11 +2,11 @@ module mongo
 
 import json
 import x.json2
-import time
+// import time
 
 pub fn (collection &C.mongoc_collection_t) count(filter map[string]json2.Any) i64 {
 	json_data := filter.str()
-	filter_bson_t := C.bson_new_from_json(json_data.str, json_data.len, 0)
+	filter_bson_t := new_from_json(json_data)
 
 	defer {
 		filter_bson_t.destroy()
@@ -41,7 +41,7 @@ pub fn (collection &C.mongoc_collection_t) find(query map[string]json2.Any) &C.m
 	// mut dt := sw.elapsed().microseconds()
 	// println('Elapsed time (query.str()): $dt uS') // Elapsed time (query.str()): 14 uS
 
-	query_bson_t := C.bson_new_from_json(json_data.str, json_data.len, 0)
+	query_bson_t := new_from_json(json_data)
 
 	defer {
 		query_bson_t.destroy()
@@ -100,8 +100,8 @@ pub fn (collection &C.mongoc_collection_t) destroy() {
 
 //*   sugar fn   *
 pub fn (collection &C.mongoc_collection_t) insert<T>(t T) bool {
-	json_str := json.encode(t)
-	document := C.bson_new_from_json(json_str.str, json_str.len, 0)
+	document := new_bson_from(t)
+
 	return C.mongoc_collection_insert_one(collection, document, 0, 0, 0)
 }
 
@@ -111,26 +111,22 @@ pub fn (collection &C.mongoc_collection_t) replaceone<T>(oid string, t T) bool {
 }
 
 pub fn (collection &C.mongoc_collection_t) replace<T>(selector &C.bson_t, t T) bool {
-	json_str := json.encode(t)
-	document := C.bson_new_from_json(json_str.str, json_str.len, 0)
+	document := new_bson_from(t)
 	return C.mongoc_collection_replace_one(collection, selector, document, 0, 0, 0)
 }
 
 pub fn (collection &C.mongoc_collection_t) replace_opts<T>(selector &C.bson_t, opts &C.bson_t, t T) bool {
-	json_str := json.encode(t)
-	document := C.bson_new_from_json(json_str.str, json_str.len, 0)
+	document := new_bson_from(t)
 	return C.mongoc_collection_replace_one(collection, selector, document, opts, 0, 0)
 }
 
 pub fn (collection &C.mongoc_collection_t) update<T>(selector &C.bson_t, t T) bool {
-	json_str := json.encode(t)
-	document := C.bson_new_from_json(json_str.str, json_str.len, 0)
+	document := new_bson_from(t)
 	return C.mongoc_collection_update_one(collection, selector, document, 0, 0, 0)
 }
 
 pub fn (collection &C.mongoc_collection_t) update_opts<T>(selector &C.bson_t, opts &C.bson_t, t T) bool {
-	json_str := json.encode(t)
-	document := C.bson_new_from_json(json_str.str, json_str.len, 0)
+	document := new_bson_from(t)
 	return C.mongoc_collection_update_one(collection, selector, document, opts, 0, 0)
 }
 

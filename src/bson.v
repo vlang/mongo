@@ -15,12 +15,22 @@ pub fn new_bson_oid_filter(_oid string) &C.bson_t {
 [inline]
 pub fn new_bson_from<T>(t T) &C.bson_t {
 	json_data := json.encode(t)
-	return C.bson_new_from_json(json_data.str, json_data.len, 0)
+	error := C.bson_error_t{}
+	bson := C.bson_new_from_json(json_data.str, json_data.len, &error)
+	if unsafe { error.message.vstring() != '' } {
+		panic(error)
+	}
+	return bson
 }
 
 [inline]
 pub fn new_from_json(json_data string) &C.bson_t {
-	return C.bson_new_from_json(json_data.str, json_data.len, 0)
+	error := C.bson_error_t{}
+	bson := C.bson_new_from_json(json_data.str, json_data.len, &error)
+	if unsafe { error.message.vstring() != '' } {
+		panic(error)
+	}
+	return bson
 }
 
 pub fn (document &C.bson_t) reinit() {
@@ -101,7 +111,17 @@ pub fn (document &C.bson_t) equal(b &C.bson_t) bool {
 
 //*    sugar fn    *
 pub fn to_bson<T>(t T) &C.bson_t {
-	return C.bson_new_from_json(json.encode(t).str, -1, 0)
+	json_data := json.encode(t)
+
+	error := C.bson_error_t{}
+
+	bson := C.bson_new_from_json(json_data.str, json_data.len, &error)
+
+	if unsafe { error.message.vstring() != '' } {
+		panic(error)
+	}
+
+	return bson
 }
 
 pub fn (document &C.bson_t) to<T>() ?T {
