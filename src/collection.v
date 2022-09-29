@@ -4,7 +4,23 @@ import json
 import x.json2
 import time
 
-pub fn (collection &C.mongoc_collection_t) count(filter &C.bson_t) i64 {
+pub fn (collection &C.mongoc_collection_t) count(filter map[string]json2.Any) i64 {
+	json_data := filter.str()
+	filter_bson_t := C.bson_new_from_json(json_data.str, json_data.len, 0)
+
+	defer {
+		filter_bson_t.destroy()
+	}
+
+	return C.mongoc_collection_count_documents(collection, filter_bson_t, 0, 0, 0, 0)
+}
+
+pub fn (collection &C.mongoc_collection_t) count_from<T>(t T) i64 {
+	query_bson_t := new_bson_from<T>(t)
+	return C.mongoc_collection_count_documents(collection, filter, 0, 0, 0, 0)
+}
+
+pub fn (collection &C.mongoc_collection_t) count_from_bson_t(filter &C.bson_t) i64 {
 	return C.mongoc_collection_count_documents(collection, filter, 0, 0, 0, 0)
 }
 

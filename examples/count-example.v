@@ -7,11 +7,9 @@ fn main() {
 
 	collection := client.get_collection('vlang', 'mongo-test')
 
-	bson_filter := mongo.new_bson_from<map[string]string>({
+	count := collection.count({
 		'version': '0.2.2'
 	})
-
-	count := collection.count(bson_filter)
 
 	println(count)
 }
