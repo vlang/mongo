@@ -9,7 +9,10 @@ pub struct C.bson_t {
 }
 
 // http://mongoc.org/libbson/current/bson_oid_t.html
-pub struct C.bson_oid_t {}
+[typedef]
+pub struct C.bson_oid_t {
+	bytes u8 // ObjectId is a 12-byte BSON type
+}
 
 // http://mongoc.org/libbson/current/bson_subtype_t.html
 pub struct C.bson_subtype_t {}
