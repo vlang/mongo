@@ -16,8 +16,8 @@ pub fn (collection &C.mongoc_collection_t) count(filter map[string]json2.Any) i6
 }
 
 pub fn (collection &C.mongoc_collection_t) count_from<T>(t T) i64 {
-	query_bson_t := new_bson_from<T>(t)
-	return C.mongoc_collection_count_documents(collection, filter, 0, 0, 0, 0)
+	filter_bson_t := new_bson_from<T>(t)
+	return C.mongoc_collection_count_documents(collection, filter_bson_t, 0, 0, 0, 0)
 }
 
 pub fn (collection &C.mongoc_collection_t) count_from_bson_t(filter &C.bson_t) i64 {
