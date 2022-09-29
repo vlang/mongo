@@ -33,9 +33,9 @@ pub fn (document &C.bson_t) append_date_time(key string, timestamp i64) bool {
 	return C.bson_append_date_time(document, key.str, key.len, timestamp)
 }
 
-pub fn (document &C.bson_t) append_decimal128(key string, decimal128 &C.bson_decimal128_t) bool {
-	return C.bson_append_decimal128(document, key.str, key.len, decimal128)
-}
+// pub fn (document &C.bson_t) append_decimal128(key string, decimal128 &C.bson_decimal128_t) bool {
+// 	return C.bson_append_decimal128(document, key.str, key.len, decimal128)
+// }
 
 pub fn (document &C.bson_t) append_document(key string, adocument &C.bson_t) bool {
 	return C.bson_append_document(document, key.str, key.len, adocument)
@@ -105,6 +105,6 @@ pub fn (document &C.bson_t) append_utf8(key string, value string) bool {
 	return C.bson_append_utf8(document, key.str, key.len, value.str, -1)
 }
 
-pub fn (document &C.bson_t) append_value(key string, value &C.bson_value_t) bool {
-	return C.bson_append_value(document, key.str, key.len, value)
-}
+// pub fn (document &C.bson_t) append_value(key string, value &C.bson_value_t) bool {
+// 	return C.bson_append_value(document, key.str, key.len, value)
+// }
