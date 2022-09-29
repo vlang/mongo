@@ -66,7 +66,6 @@ fn test_bson_t_insert() {
 	client.destroy()
 }
 
-
 fn test_bson_t_find_lean() {
 	url := 'mongodb://127.0.0.1:27017/'
 
@@ -98,11 +97,11 @@ fn test_bson_t_find_lean() {
 	// // TODO - when x.json2.Any.str() can convert symbols like $
 	// assert response.str() == '[{"_id":{"\$oid":"633587f719a6f14926055715"},"str":"string","number":2,"float":2.1,"boolean":true},{"_id":{"$oid":"633587f719a6f14926055716"},"str":"string","number":2,"float":2.1,"boolean":true},{"_id":{"\$oid":"633587f719a6f14926055717"},"str":"string","number":2,"float":2.1,"boolean":true}]'
 
-	for obj in response{
-		assert obj.as_map()["str"] or {0}.str() == "string"
-		assert obj.as_map()["number"] or {0}.int() == 2
-		assert obj.as_map()["float"] or {0}.f64() == 2.1
-		assert obj.as_map()["boolean"] or {0}.bool() == true
+	for obj in response {
+		assert obj.as_map()['str'] or { 0 }.str() == 'string'
+		assert obj.as_map()['number'] or { 0 }.int() == 2
+		assert obj.as_map()['float'] or { 0 }.f64() == 2.1
+		assert obj.as_map()['boolean'] or { 0 }.bool() == true
 	}
 
 	client.get_database('vlang').drop()
