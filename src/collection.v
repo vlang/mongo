@@ -1,6 +1,8 @@
 module mongo
 
 import json
+import x.json2
+import time
 
 pub fn (collection &C.mongoc_collection_t) count(filter &C.bson_t) i64 {
 	return C.mongoc_collection_count_documents(collection, filter, 0, 0, 0, 0)
@@ -17,9 +19,33 @@ pub fn (collection &C.mongoc_collection_t) insert_many(documents []&C.bson_t) bo
 }
 */
 
-pub fn (collection &C.mongoc_collection_t) find(query &C.bson_t) &C.mongoc_cursor_t {
-	return C.mongoc_collection_find(collection, .no_cursor_timeout, 0, 0, 0, query, 0,
-		0)
+pub fn (collection &C.mongoc_collection_t) find(query map[string]json2.Any) &C.mongoc_cursor_t {
+	// sw := time.new_stopwatch()
+	json_data := query.str()
+	// mut dt := sw.elapsed().microseconds()
+	// println('Elapsed time (query.str()): $dt uS') // Elapsed time (query.str()): 14 uS
+
+	query_bson_t := C.bson_new_from_json(json_data.str, json_data.len, 0)
+
+	defer {
+		query_bson_t.destroy()
+	}
+
+	// dt = sw.elapsed().microseconds()
+	// println('Elapsed time (C.bson_new_from_json): $dt uS') // Elapsed time (C.bson_new_from_json): 27 uS
+	return C.mongoc_collection_find(collection, 0, 0, 0, 0, query_bson_t, unsafe { nil },
+		unsafe { nil })
+}
+
+pub fn (collection &C.mongoc_collection_t) find_from<T>(t T) &C.mongoc_cursor_t {
+	query_bson_t := new_bson_from<T>(t)
+	return C.mongoc_collection_find(collection, 0, 0, 0, 0, query_bson_t, unsafe { nil },
+		unsafe { nil })
+}
+
+pub fn (collection &C.mongoc_collection_t) find_from_bson_t(query_bson_t &C.bson_t) &C.mongoc_cursor_t {
+	return C.mongoc_collection_find(collection, 0, 0, 0, 0, query_bson_t, unsafe { nil },
+		unsafe { nil })
 }
 
 pub fn (collection &C.mongoc_collection_t) find_oid(oid string) &C.mongoc_cursor_t {
@@ -53,7 +79,7 @@ pub fn (collection &C.mongoc_collection_t) create_bulk_operation() &C.mongoc_bul
 }
 
 pub fn (collection &C.mongoc_collection_t) destroy() {
-	C.mongoc_collection_destroy(collection)
+	unsafe { C.mongoc_collection_destroy(collection) }
 }
 
 //*   sugar fn   *
