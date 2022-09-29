@@ -41,7 +41,7 @@ pub fn (cursor &C.mongoc_cursor_t) lean() []json2.Any {
 
 	for cursor.next_doc(&document) {
 		json_doc := document.str()
-		raw_mp := json2.raw_decode(json_doc) or {continue}
+		raw_mp := json2.raw_decode(json_doc) or { continue }
 		response << raw_mp.as_map()
 	}
 	return response
