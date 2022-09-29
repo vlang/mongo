@@ -1,5 +1,4 @@
 module mongo
-
 import x.json2
 
 struct Test {
@@ -24,44 +23,25 @@ fn test_bson_t_insert() {
 	}
 
 	struct_bson := new_bson_from<Test>(test)
-	is_struct_bson_inserted := collection.insert_one(struct_bson)
-	struct_bson.destroy()
-
-	map_bson := new_bson_from<map[string]string>({
-		'str':            'string'
-		'number_string':  '2'
-		'float_string':   '2.1'
-		'boolean_string': 'true'
-	})
-	is_map_bson_inserted := collection.insert_one(map_bson)
-	map_bson.destroy()
-
-	// TODO
-	// any_map_bson := new_bson_from<map[string]json2.Any>({'str': 'string','number': 2, 'float': 2.1,'boolean': true})
-	// is_any_map_bson_inserted := collection.insert_one(map_bson)
-	// any_map_bson.destroy()
-
 	json_bson := new_from_json('{"str":"string","number":2,"float":2.1,"boolean":true}')
-	is_json_bson_inserted := collection.insert_one(json_bson)
 
-	// // TODO - when https://github.com/vlang/v/issues/15923 be fixed
-	// encoded_json2_any_types := json2.encode({"str":"string","number":2,"float":2.1,"boolean":true})
-	// encoded_json2_any_types_bson := new_from_json(encoded_json1)
-	// is_encoded_json2_any_types_bson_inserted := collection.insert_one(json_bson)
+	child := json2.Any({
+		'bar': json2.Any(10)
+	})
 
-	// // TODO - when https://github.com/vlang/v/issues/15923 be fixed
-	// encoded_json2_any_sub_types := json2.encode({"str":"string","number":{"data":2},"float":{"value":2.1},"boolean":{"status":true}})
-	// encoded_json2_any_sub_types_bson := new_from_json(encoded_json1)
-	// is_encoded_json2_any_sub_types_bson_inserted := collection.insert_one(json_bson)
+	collection.insert_one({
+		'str':     'string'
+		'number':  2
+		'float':   2.1
+		'boolean': true
+		'foo':     child
+	})
+	assert collection.insert_one_from<Test>(test)
+	assert collection.insert_one_from_bson_t(struct_bson)
+	assert collection.insert_one_from_bson_t(json_bson)
 
-	collection.destroy()
-
-	assert is_struct_bson_inserted
-	assert is_map_bson_inserted
-	assert is_json_bson_inserted
-	// assert is_any_map_bson
-	// assert is_encoded_json2_any_types_bson_inserted
-	// assert is_encoded_json2_any_sub_types_bson_inserted
+	struct_bson.destroy()
+	json_bson.destroy()
 	client.get_database('vlang').drop()
 	client.destroy()
 }
@@ -80,12 +60,10 @@ fn test_bson_t_find_lean() {
 		boolean: true
 	}
 
-	struct_bson := new_bson_from<Test>(test)
 	for i in 0 .. 3 {
 		print(i)
-		collection.insert_one(struct_bson)
+		collection.insert_one_from<Test>(test)
 	}
-	struct_bson.destroy()
 
 	response := collection.find({
 		'str': 'string'

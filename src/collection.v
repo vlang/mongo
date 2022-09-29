@@ -1,6 +1,5 @@
 module mongo
 
-import json
 import x.json2
 // import time
 
@@ -24,7 +23,26 @@ pub fn (collection &C.mongoc_collection_t) count_from_bson_t(filter &C.bson_t) i
 	return C.mongoc_collection_count_documents(collection, filter, 0, 0, 0, 0)
 }
 
-pub fn (collection &C.mongoc_collection_t) insert_one(document &C.bson_t) bool {
+pub fn (collection &C.mongoc_collection_t) insert_one(document map[string]json2.Any) bool {
+	json_data := document.str()
+	document_bson_t := new_from_json(json_data)
+
+	defer {
+		document_bson_t.destroy()
+	}
+
+	return C.mongoc_collection_insert_one(collection, document_bson_t, 0, 0, 0)
+}
+
+pub fn (collection &C.mongoc_collection_t) insert_one_from<T>(t T) bool {
+	document_bson_t := new_bson_from<T>(t)
+	defer {
+		document_bson_t.destroy()
+	}
+	return C.mongoc_collection_insert_one(collection, document_bson_t, 0, 0, 0)
+}
+
+pub fn (collection &C.mongoc_collection_t) insert_one_from_bson_t(document &C.bson_t) bool {
 	return C.mongoc_collection_insert_one(collection, document, 0, 0, 0)
 }
 
