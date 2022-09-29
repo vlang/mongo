@@ -16,6 +16,10 @@ pub fn (client &C.mongoc_client_t) get_collection(db_name string, collection_nam
 	return C.mongoc_client_get_collection(client, db_name.str, collection_name.str)
 }
 
+pub fn (client &C.mongoc_client_t) set_error_api() bool {
+	return C.mongoc_client_set_error_api(client, 2)
+}
+
 pub fn (client &C.mongoc_client_t) destroy() {
 	C.mongoc_client_destroy(client)
 }

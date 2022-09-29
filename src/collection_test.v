@@ -1,4 +1,5 @@
 module mongo
+
 import x.json2
 
 struct Test {
