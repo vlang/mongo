@@ -36,16 +36,14 @@ pub fn (cursor &C.mongoc_cursor_t) lean() []json2.Any {
 
 	mut error := C.bson_error_t{}
 
-
 	for C.mongoc_cursor_next(cursor, &document) {
 		json_doc := document.str()
 		raw_mp := json2.raw_decode(json_doc) or { continue }
 		response << raw_mp.as_map()
 	}
 
-
 	if C.mongoc_cursor_error_document(cursor, &error, &reply) {
-		unsafe{println(C.bson_as_json(reply, 0).vstring())}
+		unsafe { println(C.bson_as_json(reply, 0).vstring()) }
 		panic(error)
 	}
 
