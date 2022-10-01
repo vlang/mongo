@@ -8,8 +8,9 @@ pub fn (cursor &C.mongoc_cursor_t) next_doc(document &&C.bson_t) bool {
 	return C.mongoc_cursor_next(cursor, document)
 }
 
-pub fn (cursor &C.mongoc_cursor_t) limit(limit int) bool {
-	return C.mongoc_cursor_set_limit(cursor, limit)
+pub fn (cursor &C.mongoc_cursor_t) limit(limit int) &C.mongoc_cursor_t {
+	C.mongoc_cursor_set_limit(cursor, limit)
+	return unsafe { cursor }
 }
 
 // Get the next document parsing it with the arg struct type and setting it
@@ -29,6 +30,9 @@ pub fn (cursor &C.mongoc_cursor_t) destroy() {
 }
 
 pub fn (cursor &C.mongoc_cursor_t) lean() []json2.Any {
+	if !C.mongoc_cursor_more(cursor) {
+		return []
+	}
 	mut response := []json2.Any{}
 
 	document := new_bson()
@@ -48,4 +52,25 @@ pub fn (cursor &C.mongoc_cursor_t) lean() []json2.Any {
 	}
 
 	return response
+}
+
+pub fn (cursor &C.mongoc_cursor_t) skip(skip int) &C.mongoc_cursor_t {
+	if skip == 0 || !C.mongoc_cursor_more(cursor) {
+		return unsafe { cursor }
+	}
+
+	document := &C.bson_t{}
+
+	mut count := skip
+	for C.mongoc_cursor_next(cursor, &document) {
+		count--
+		if count == 0 {
+			break
+		}
+	}
+	document.destroy()
+	// // FIXME - it not possible set limit after .skip()
+	// unsafe{println("Set try >>>>>>>>>>> ${C.mongoc_cursor_set_limit(cursor, 1)}")}
+
+	return unsafe { cursor }
 }
