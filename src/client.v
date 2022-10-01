@@ -1,7 +1,9 @@
 module mongo
 
 pub fn new_client(uri string) &C.mongoc_client_t {
-	return C.mongoc_client_new(uri.str)
+	mongoc_uri := C.mongoc_uri_new(uri.str)
+	mut error := C.bson_error_t{}
+	return C.mongoc_client_new_from_uri_with_error(mongoc_uri, &error)
 }
 
 pub fn (client &C.mongoc_client_t) set_appname(name string) bool {

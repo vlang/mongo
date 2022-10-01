@@ -15,6 +15,7 @@ fn C.mongoc_uri_destroy(&C.mongoc_uri_t)
 
 fn C.mongoc_client_new(byteptr) &C.mongoc_client_t
 fn C.mongoc_client_new_from_uri(&C.mongoc_uri_t) &C.mongoc_client_t
+fn C.mongoc_client_new_from_uri_with_error(&C.mongoc_uri_t, &C.bson_error_t) &C.mongoc_client_t
 fn C.mongoc_client_destroy(&C.mongoc_client_t)
 fn C.mongoc_client_set_appname(&C.mongoc_client_t, byteptr) bool
 
