@@ -7,14 +7,14 @@ struct Test {
 	boolean bool
 }
 
-fn test_to_json() {
+fn test_new_bson_from() {
 	test := Test{
 		str: 'test'
 		number: 1
 		float: 0.5
 		boolean: true
 	}
-	text := to_bson<Test>(test)
+	text := new_bson_from<Test>(test)
 	assert text.as_json() == '{ "str" : "test", "number" : 1, "float" : 0.5, "boolean" : true }'
 }
 

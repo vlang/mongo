@@ -22,11 +22,23 @@
 #ifndef MONGOC_CONFIG_H
 #define MONGOC_CONFIG_H
 
+/* clang-format off */
+
+/*
+ * NOTICE:
+ * If you're about to update this file and add a config flag, make sure to
+ * update:
+ * o The bitfield in mongoc-handshake-private.h
+ * o _mongoc_handshake_get_config_hex_string() in mongoc-handshake.c
+ * o examples/parse_handshake_cfg.py
+ * o test_handshake_config_string in test-mongoc-handshake.c
+ */
+
 /* MONGOC_USER_SET_CFLAGS is set from config based on what compiler flags were
  * used to compile mongoc */
-#define MONGOC_USER_SET_CFLAGS ""
+#define MONGOC_USER_SET_CFLAGS "-g -O2  -flto=auto -ffat-lto-objects -flto=auto -ffat-lto-objects -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -Wall -Wdeclaration-after-statement -Wempty-body -Wformat -Wformat-nonliteral -Wformat-security -Winit-self -Winline -Wmissing-include-dirs -Wno-strict-aliasing -Wno-uninitialized -Wredundant-decls -Wshadow -Wswitch-default -Wswitch-enum -Wundef -Wuninitialized -Wexpansion-to-defined -pedantic"
 
-#define MONGOC_USER_SET_LDFLAGS ""
+#define MONGOC_USER_SET_LDFLAGS "-Wl,-Bsymbolic-functions -flto=auto -ffat-lto-objects -flto=auto -Wl,-z,relro -Wl,-z,now -lpthread"
 
 /* MONGOC_CC is used to determine what C compiler was used to compile mongoc */
 #define MONGOC_CC "/usr/bin/cc"
@@ -198,7 +210,7 @@
  * Disable automatic calls to mongoc_init() and mongoc_cleanup()
  * before main() is called, and after exit() (respectively).
  */
-#define MONGOC_NO_AUTOMATIC_GLOBALS 1
+#define MONGOC_NO_AUTOMATIC_GLOBALS 0
 
 #if MONGOC_NO_AUTOMATIC_GLOBALS != 1
 #  undef MONGOC_NO_AUTOMATIC_GLOBALS
@@ -292,7 +304,7 @@
  * Set if we have snappy compression support
  *
  */
-#define MONGOC_ENABLE_COMPRESSION_SNAPPY 0
+#define MONGOC_ENABLE_COMPRESSION_SNAPPY 1
 
 #if MONGOC_ENABLE_COMPRESSION_SNAPPY != 1
 #  undef MONGOC_ENABLE_COMPRESSION_SNAPPY
@@ -313,7 +325,7 @@
  * Set if we have zstd compression support
  *
  */
-#define MONGOC_ENABLE_COMPRESSION_ZSTD 0
+#define MONGOC_ENABLE_COMPRESSION_ZSTD 1
 
 #if MONGOC_ENABLE_COMPRESSION_ZSTD != 1
 #  undef MONGOC_ENABLE_COMPRESSION_ZSTD
@@ -353,18 +365,23 @@
 /*
  * Set if tracing is enabled. Logs things like network communication and
  * entry/exit of certain functions.
- *
  */
 #define MONGOC_TRACE 0
 
-#if MONGOC_TRACE != 1
-#  undef MONGOC_TRACE
-#endif
+enum {
+   /**
+    * @brief Compile-time constant determining whether the mongoc library was
+    * compiled with tracing enabled.
+    *
+    * Can be controlled with the 'ENABLE_TRACING" configure-time boolean option
+    */
+   MONGOC_TRACE_ENABLED = MONGOC_TRACE
+};
 
 /*
  * Set if we have ICU support.
  */
-#define MONGOC_ENABLE_ICU 0
+#define MONGOC_ENABLE_ICU 1
 
 #if MONGOC_ENABLE_ICU != 1
 #  undef MONGOC_ENABLE_ICU
@@ -375,7 +392,7 @@
  * Set if we have Client Side Encryption support.
  */
 
-#define MONGOC_ENABLE_CLIENT_SIDE_ENCRYPTION 0
+#define MONGOC_ENABLE_CLIENT_SIDE_ENCRYPTION 1
 
 #if MONGOC_ENABLE_CLIENT_SIDE_ENCRYPTION != 1
 #  undef MONGOC_ENABLE_CLIENT_SIDE_ENCRYPTION
@@ -393,13 +410,14 @@
 #endif
 
 /*
- * NOTICE:
- * If you're about to update this file and add a config flag, make sure to
- * update:
- * o The bitfield in mongoc-handshake-private.h
- * o _mongoc_handshake_get_config_hex_string() in mongoc-handshake.c
- * o examples/parse_handshake_cfg.py
- * o test_handshake_config_string in test-mongoc-handshake.c
+ * Set if building with AWS IAM support.
  */
+#define MONGOC_ENABLE_MONGODB_AWS_AUTH 1
+
+#if MONGOC_ENABLE_MONGODB_AWS_AUTH != 1
+#  undef MONGOC_ENABLE_MONGODB_AWS_AUTH
+#endif
+
+/* clang-format on */
 
 #endif /* MONGOC_CONFIG_H */

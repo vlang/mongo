@@ -1,5 +1,5 @@
 /*
- * Copyright 2014 MongoDB, Inc.
+ * Copyright 2021 MongoDB, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,8 +16,8 @@
 
 #include "mongoc-prelude.h"
 
-#ifndef MONGOC_MATCHER_H
-#define MONGOC_MATCHER_H
+#ifndef MONGOC_OPTIONAL_H
+#define MONGOC_OPTIONAL_H
 
 #include <bson/bson.h>
 
@@ -25,21 +25,26 @@
 
 BSON_BEGIN_DECLS
 
+typedef struct {
+   bool value;
+   bool is_set;
+} mongoc_optional_t;
 
-typedef struct _mongoc_matcher_t mongoc_matcher_t;
-
-
-MONGOC_EXPORT (mongoc_matcher_t *)
-mongoc_matcher_new (const bson_t *query, bson_error_t *error)
-   BSON_GNUC_WARN_UNUSED_RESULT BSON_GNUC_DEPRECATED;
-MONGOC_EXPORT (bool)
-mongoc_matcher_match (const mongoc_matcher_t *matcher,
-                      const bson_t *document) BSON_GNUC_DEPRECATED;
 MONGOC_EXPORT (void)
-mongoc_matcher_destroy (mongoc_matcher_t *matcher) BSON_GNUC_DEPRECATED;
+mongoc_optional_init (mongoc_optional_t *opt);
 
+MONGOC_EXPORT (bool)
+mongoc_optional_is_set (const mongoc_optional_t *opt);
+
+MONGOC_EXPORT (bool)
+mongoc_optional_value (const mongoc_optional_t *opt);
+
+MONGOC_EXPORT (void)
+mongoc_optional_set_value (mongoc_optional_t *opt, bool val);
+
+MONGOC_EXPORT (void)
+mongoc_optional_copy (const mongoc_optional_t *source, mongoc_optional_t *copy);
 
 BSON_END_DECLS
 
-
-#endif /* MONGOC_MATCHER_H */
+#endif /* MONGOC_OPTIONAL_H */

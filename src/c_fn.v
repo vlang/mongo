@@ -15,6 +15,7 @@ fn C.mongoc_uri_destroy(&C.mongoc_uri_t)
 
 fn C.mongoc_client_new(byteptr) &C.mongoc_client_t
 fn C.mongoc_client_new_from_uri(&C.mongoc_uri_t) &C.mongoc_client_t
+fn C.mongoc_client_new_from_uri_with_error(&C.mongoc_uri_t, &C.bson_error_t) &C.mongoc_client_t
 fn C.mongoc_client_destroy(&C.mongoc_client_t)
 fn C.mongoc_client_set_appname(&C.mongoc_client_t, byteptr) bool
 
@@ -25,6 +26,7 @@ fn C.mongoc_client_pool_destroy(&C.mongoc_client_pool_t)
 
 fn C.mongoc_client_get_database(&C.mongoc_client_t, byteptr) &C.mongoc_database_t
 fn C.mongoc_client_get_collection(&C.mongoc_client_t, byteptr, byteptr) &C.mongoc_collection_t
+fn C.mongoc_client_set_error_api(&C.mongoc_client_t, u32) bool
 
 //	This function is deprecated and should not be used in new code.
 //	Use the more convenient mongoc_collection_find_with_opts() instead.
@@ -55,6 +57,7 @@ fn C.mongoc_cursor_next(&C.mongoc_cursor_t, &&C.bson_t) bool
 fn C.mongoc_cursor_set_limit(&C.mongoc_cursor_t, int) bool
 fn C.mongoc_cursor_clone(&C.mongoc_cursor_t) &C.mongoc_cursor_t
 fn C.mongoc_cursor_error(&C.mongoc_cursor_t, &C.bson_error_t) bool
+fn C.mongoc_cursor_error_document(&C.mongoc_cursor_t, &C.bson_error_t, &&C.bson_t) bool
 fn C.mongoc_cursor_destroy(&C.mongoc_cursor_t)
 
 // fn C.mongoc_cursor_get_host(&C.mongoc_cursor_t)
