@@ -12,13 +12,13 @@ fn main() {
 
 	collection := client.get_collection('teste', 'agreements')
 
-	app := App{
-		version: '0.2.2'
-	}
+	collection.insert_one({
+		'version': '0.2.2'
+	})
 
-	user_bson := mongo.new_bson_from<App>(app)
-
-	cursor := collection.find(user_bson)
+	cursor := collection.find({
+		'version': '0.2.2'
+	})
 
 	document := mongo.new_bson()
 
@@ -31,4 +31,6 @@ fn main() {
 	if !cursor.next_doc(&document) {
 		println(false)
 	}
+
+	client.get_database('teste').drop()
 }
