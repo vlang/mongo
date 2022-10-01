@@ -73,6 +73,9 @@ pub fn (collection &C.mongoc_collection_t) find(query map[string]json2.Any) &C.m
 
 pub fn (collection &C.mongoc_collection_t) find_from<T>(t T) &C.mongoc_cursor_t {
 	query_bson_t := new_bson_from<T>(t)
+	defer {
+		query_bson_t.destroy()
+	}
 	return C.mongoc_collection_find(collection, 0, 0, 0, 0, query_bson_t, unsafe { nil },
 		unsafe { nil })
 }
