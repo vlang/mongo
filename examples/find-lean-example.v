@@ -11,7 +11,7 @@ fn main() {
 	mut dt := sw.elapsed().microseconds()
 	println('Elapsed time (new_client): $dt uS') // Elapsed time (new_client): 38 uS
 
-	collection := client.get_collection('vlang', 'mongo-test')
+	collection := client.get_collection('test', 'mongo-test')
 
 	collection.insert_one({
 		'str':     'string'
@@ -31,5 +31,5 @@ fn main() {
 	println('Elapsed time (find): ${f64(dt) * 0.001} ms') // Elapsed time (find): 17.173000000000002 ms
 
 	println(response)
-	client.get_database('vlang').drop()
+	client.get_database('test').drop()
 }

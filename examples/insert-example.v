@@ -13,7 +13,7 @@ fn main() {
 
 	client := mongo.new_client(url)
 
-	collection := client.get_collection('vlang', 'mongo-test')
+	collection := client.get_collection('test', 'mongo-test')
 
 	test := Test{
 		str: 'string'
@@ -43,4 +43,5 @@ fn main() {
 
 	struct_bson.destroy()
 	json_bson.destroy()
+	client.get_database('test').drop()
 }
