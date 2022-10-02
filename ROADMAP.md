@@ -30,6 +30,11 @@
 - others
 - [ ] `separate bson into a submodule of mongo`
 
+#### v1.0.1
+- aggregate
+- [ ] `mongoc_collection_aggregate`
+- [ ] `mongoc_database_aggregate`
+
 #### v2.0.0
 
 - [ ] `Build a native bson vlang library`
