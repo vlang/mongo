@@ -5,11 +5,16 @@ fn main() {
 
 	client := mongo.new_client(url)
 
-	collection := client.get_collection('vlang', 'mongo-test')
+	collection := client.get_collection('test', 'mongo-test')
+
+	collection.insert_one({
+		'version': '0.2.2'
+	})
 
 	count := collection.count({
 		'version': '0.2.2'
 	})
 
 	println(count)
+	client.get_database('test').drop()
 }

@@ -30,8 +30,15 @@ pub fn (collection &C.mongoc_collection_t) insert_one(document map[string]json2.
 	defer {
 		document_bson_t.destroy()
 	}
+	error := C.bson_error_t{}
+	reply := new_bson()
 
-	return C.mongoc_collection_insert_one(collection, document_bson_t, 0, 0, 0)
+	result := C.mongoc_collection_insert_one(collection, document_bson_t, 0, &reply, &error)
+	unsafe { println(C.bson_as_json(&reply, 0).vstring()) }
+	if unsafe { error.message.vstring() != '' } {
+		panic(error)
+	}
+	return result
 }
 
 pub fn (collection &C.mongoc_collection_t) insert_one_from<T>(t T) bool {
@@ -39,11 +46,27 @@ pub fn (collection &C.mongoc_collection_t) insert_one_from<T>(t T) bool {
 	defer {
 		document_bson_t.destroy()
 	}
-	return C.mongoc_collection_insert_one(collection, document_bson_t, 0, 0, 0)
+	error := C.bson_error_t{}
+	reply := new_bson()
+
+	result := C.mongoc_collection_insert_one(collection, document_bson_t, 0, &reply, &error)
+	unsafe { println(C.bson_as_json(&reply, 0).vstring()) }
+	if unsafe { error.message.vstring() != '' } {
+		panic(error)
+	}
+	return result
 }
 
 pub fn (collection &C.mongoc_collection_t) insert_one_from_bson_t(document &C.bson_t) bool {
-	return C.mongoc_collection_insert_one(collection, document, 0, 0, 0)
+	error := C.bson_error_t{}
+	reply := new_bson()
+
+	result := C.mongoc_collection_insert_one(collection, document, 0, &reply, &error)
+	unsafe { println(C.bson_as_json(&reply, 0).vstring()) }
+	if unsafe { error.message.vstring() != '' } {
+		panic(error)
+	}
+	return result
 }
 
 // TODO fix it

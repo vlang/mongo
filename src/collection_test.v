@@ -15,7 +15,7 @@ fn test_collection() {
 	client := new_client(url)
 
 	client.get_database('vlang').drop()
-	collection := client.get_collection('vlang', 'mongo-test')
+	collection := client.get_collection('vlang', 'mongo-test') // return &mongoc_cursor_t
 
 	test := Test{
 		str: 'string'
@@ -102,6 +102,35 @@ fn test_collection() {
 		assert obj.as_map()['float'] or { 0 }.f64() == 2.1
 		assert obj.as_map()['boolean'] or { 0 }.bool() == true
 	}
+
+	mut find_cursor_to_be_paginate_filter := map[string]json2.Any{}
+	find_cursor_to_be_paginate_filter = {
+		'str': 'string'
+	}
+
+	find_cursor_to_be_paginate := collection.find(find_cursor_to_be_paginate_filter)
+	find_cursor_to_be_paginate1 := collection.find(find_cursor_to_be_paginate_filter)
+	find_cursor_to_be_paginate2 := collection.find(find_cursor_to_be_paginate_filter)
+	find_cursor_to_be_paginate3 := collection.find(find_cursor_to_be_paginate_filter)
+	find_cursor_to_be_paginate4 := collection.find(find_cursor_to_be_paginate_filter)
+
+	find_cursor_to_be_paginate.limit(2)
+	find_cursor_to_be_paginate1.skip(2)
+	find_cursor_to_be_paginate2.skip(2).limit(1) // FIXME - It is not possible use skip and limit together
+	find_cursor_to_be_paginate3.skip(0)
+	find_cursor_to_be_paginate4.limit(0)
+
+	response_with_paginate := find_cursor_to_be_paginate.lean()
+	response_with_paginate1 := find_cursor_to_be_paginate1.lean()
+	// response_with_paginate2 := find_cursor_to_be_paginate2.lean()
+	response_with_paginate3 := find_cursor_to_be_paginate3.lean()
+	response_with_paginate4 := find_cursor_to_be_paginate4.lean()
+
+	assert response_with_paginate.len == 2
+	assert response_with_paginate1.len == 3
+	// assert response_with_paginate2.len == 1
+	assert response_with_paginate3.len == 5
+	assert response_with_paginate4.len == 5
 
 	client.get_database('vlang').drop()
 	client.destroy()
