@@ -33,8 +33,8 @@ pub fn (collection &C.mongoc_collection_t) insert_one(document map[string]json2.
 	error := C.bson_error_t{}
 	reply := new_bson()
 
-	result := C.mongoc_collection_insert_one(collection, document_bson_t, 0, &reply, &error)
-	unsafe { println(C.bson_as_json(&reply, 0).vstring()) }
+	result := C.mongoc_collection_insert_one(collection, document_bson_t, 0, reply, &error)
+	// unsafe { println(C.bson_as_json(&reply, 0).vstring()) }
 	if unsafe { error.message.vstring() != '' } {
 		panic(error)
 	}
@@ -49,8 +49,8 @@ pub fn (collection &C.mongoc_collection_t) insert_one_from<T>(t T) bool {
 	error := C.bson_error_t{}
 	reply := new_bson()
 
-	result := C.mongoc_collection_insert_one(collection, document_bson_t, 0, &reply, &error)
-	unsafe { println(C.bson_as_json(&reply, 0).vstring()) }
+	result := C.mongoc_collection_insert_one(collection, document_bson_t, 0, reply, &error)
+	// unsafe { println(C.bson_as_json(&reply, 0).vstring()) }
 	if unsafe { error.message.vstring() != '' } {
 		panic(error)
 	}
@@ -61,8 +61,8 @@ pub fn (collection &C.mongoc_collection_t) insert_one_from_bson_t(document &C.bs
 	error := C.bson_error_t{}
 	reply := new_bson()
 
-	result := C.mongoc_collection_insert_one(collection, document, 0, &reply, &error)
-	unsafe { println(C.bson_as_json(&reply, 0).vstring()) }
+	result := C.mongoc_collection_insert_one(collection, document, 0, reply, &error)
+	// unsafe { println(C.bson_as_json(&reply, 0).vstring()) }
 	if unsafe { error.message.vstring() != '' } {
 		panic(error)
 	}
