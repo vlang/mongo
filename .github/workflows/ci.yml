@@ -45,7 +45,6 @@ jobs:
       - name: Build Mongo example
         run: |
           cd ./vlib/mongo/examples/
-          v -prod example.v
           v -prod count-example.v
           v -prod find-example.v
           v -prod find-lean-example.v
