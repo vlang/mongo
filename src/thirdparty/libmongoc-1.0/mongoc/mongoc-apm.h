@@ -30,9 +30,9 @@ BSON_BEGIN_DECLS
 
 /*
  * Application Performance Management (APM) interface, complies with two specs.
- * MongoDB's Command Monitoring Spec:
+ * MongoDB's Command Logging and Monitoring Spec:
  *
- * https://github.com/mongodb/specifications/tree/master/source/command-monitoring
+ * https://github.com/mongodb/specifications/tree/master/source/command-logging-and-monitoring
  *
  * MongoDB's Spec for Monitoring Server Discovery and Monitoring (SDAM) events:
  *
@@ -102,6 +102,14 @@ mongoc_apm_command_started_get_server_id (
 MONGOC_EXPORT (const bson_oid_t *)
 mongoc_apm_command_started_get_service_id (
    const mongoc_apm_command_started_t *event);
+MONGOC_EXPORT (int32_t)
+mongoc_apm_command_started_get_server_connection_id (
+   const mongoc_apm_command_started_t *event)
+   BSON_GNUC_DEPRECATED_FOR (
+      "mongoc_apm_command_started_get_server_connection_id_int64");
+MONGOC_EXPORT (int64_t)
+mongoc_apm_command_started_get_server_connection_id_int64 (
+   const mongoc_apm_command_started_t *event);
 MONGOC_EXPORT (void *)
 mongoc_apm_command_started_get_context (
    const mongoc_apm_command_started_t *event);
@@ -131,6 +139,14 @@ mongoc_apm_command_succeeded_get_server_id (
    const mongoc_apm_command_succeeded_t *event);
 MONGOC_EXPORT (const bson_oid_t *)
 mongoc_apm_command_succeeded_get_service_id (
+   const mongoc_apm_command_succeeded_t *event);
+MONGOC_EXPORT (int32_t)
+mongoc_apm_command_succeeded_get_server_connection_id (
+   const mongoc_apm_command_succeeded_t *event)
+   BSON_GNUC_DEPRECATED_FOR (
+      "mongoc_apm_command_succeeded_get_server_connection_id_int64");
+MONGOC_EXPORT (int64_t)
+mongoc_apm_command_succeeded_get_server_connection_id_int64 (
    const mongoc_apm_command_succeeded_t *event);
 MONGOC_EXPORT (void *)
 mongoc_apm_command_succeeded_get_context (
@@ -163,6 +179,14 @@ mongoc_apm_command_failed_get_server_id (
    const mongoc_apm_command_failed_t *event);
 MONGOC_EXPORT (const bson_oid_t *)
 mongoc_apm_command_failed_get_service_id (
+   const mongoc_apm_command_failed_t *event);
+MONGOC_EXPORT (int32_t)
+mongoc_apm_command_failed_get_server_connection_id (
+   const mongoc_apm_command_failed_t *event)
+   BSON_GNUC_DEPRECATED_FOR (
+      "mongoc_apm_command_failed_get_server_connection_id_int64");
+MONGOC_EXPORT (int64_t)
+mongoc_apm_command_failed_get_server_connection_id_int64 (
    const mongoc_apm_command_failed_t *event);
 MONGOC_EXPORT (void *)
 mongoc_apm_command_failed_get_context (

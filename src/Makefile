@@ -1,5 +1,6 @@
 version = 1.24.4
 
+.PHONY: thirdparty
 .DEFAULT_GOAL := install
 build:
 	apt install -y cmake libssl-dev libsasl2-dev
@@ -12,3 +13,7 @@ build:
 	make install
 install:
 	apt install -y libbson-1.0-0 libmongoc-1.0-0
+thirdparty:
+	rm -Rf thirdparty/*
+	cp -R /usr/local/include/libbson-1.0 thirdparty
+	cp -R /usr/local/include/libmongoc-1.0 thirdparty
