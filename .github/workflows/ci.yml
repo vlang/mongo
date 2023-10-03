@@ -33,8 +33,9 @@ jobs:
           cd ./vlib/mongo/src
           sudo make install
       - name: Test
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
         run: |
-          echo "${{ secrets.DATABASE_URL }}" >> "$DATABASE_URL"
           cd ./vlib/mongo/
           v -stats test .
       - name: Build Mongo shared lib
