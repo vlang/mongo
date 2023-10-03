@@ -31,6 +31,7 @@ jobs:
       - name: Install Mongo dependencies
         run: |
           cd ./vlib/mongo/src
+          sudo make build
           sudo make install
       - name: Test
         env:
