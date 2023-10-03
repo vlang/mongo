@@ -6,8 +6,8 @@ _MongoDB driver for vlang_
 
 #### Installing dependeces
 
-[libmongoc](http://mongoc.org/libmongoc/current/installing.html#install-libmongoc-with-a-package-manager)(MongoDB C Driver)
-[libbson](http://mongoc.org/libmongoc/current/installing.html#install-libbson-with-a-package-manager)(BSON library)
+[libmongoc](http://mongoc.org/libmongoc/current/installing.html#install-libmongoc-with-a-package-manager) (MongoDB C Driver)
+[libbson](http://mongoc.org/libmongoc/current/installing.html#install-libbson-with-a-package-manager) (BSON library)
 
 ```bash
 # Debian and Ubuntu

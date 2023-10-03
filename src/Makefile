@@ -12,7 +12,7 @@ build:
 	make && \
 	make install
 install:
-	apt install -y libbson-1.0-0 libmongoc-1.0-0
+	apt install -y libbson-1.0-0 libmongoc-1.0-0 libmongoc-dev
 thirdparty:
 	rm -Rf thirdparty/*
 	cp -R /usr/local/include/libbson-1.0 thirdparty
