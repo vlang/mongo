@@ -34,6 +34,7 @@ jobs:
           sudo make install
       - name: Test
         run: |
+          echo "${{ secrets.DATABASE_URL }}" >> "$DATABASE_URL"
           cd ./vlib/mongo/
           v -stats test .
       - name: Build Mongo shared lib
@@ -44,3 +45,7 @@ jobs:
         run: |
           cd ./vlib/mongo/examples/
           v -prod example.v
+          v -prod count-example.v
+          v -prod find-example.v
+          v -prod find-lean-example.v
+          v -prod insert-example.v

@@ -1,5 +1,6 @@
 module mongo
 
+import os
 import x.json2
 
 struct Test {
@@ -10,7 +11,7 @@ struct Test {
 }
 
 fn test_collection() {
-	url := 'mongodb://127.0.0.1:27017/'
+	url := os.getenv_opt('DATABASE_URL') or { 'mongodb://127.0.0.1:27017/' }
 
 	client := new_client(url)
 

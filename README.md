@@ -48,9 +48,13 @@ v install mongo
 
 
 ```v
+url := os.getenv_opt('DATABASE_URL') or { 'mongodb://127.0.0.1:27017' }
+
 // connect to mongo
-mongo_uri := mongo.uri_new('mongodb://127.0.0.1:27017')
-client := mongo_uri.new_client()
+client := mongo.new_client(url)
+
+// select database
+database := client.get_database('db_name')
 
 // select database
 database := client.get_database('db_name')
