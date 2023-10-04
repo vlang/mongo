@@ -32,9 +32,13 @@ jobs:
         run: |
           cd ./vlib/mongo/src
           sudo make install
+      - name: MongoDB Community Server
+        run: |
+          curl -LO https://repo.mongodb.org/apt/ubuntu/dists/focal/mongodb-org/7.0/multiverse/binary-amd64/mongodb-org-server_7.0.2_amd64.deb
+          sudo apt install -y mongodb-org-server_7.0.2_amd64.deb
+          mmkdir -p data
+          mongod --dbpath data &
       - name: Test
-        env:
-          DATABASE_URL: ${{ secrets.DATABASE_URL }}
         run: |
           cd ./vlib/mongo/
           v -stats test .
