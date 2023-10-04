@@ -28,6 +28,7 @@
 #include "bson-macros.h"
 #include "bson-config.h"
 #include "bson-atomic.h"
+#include "bson-cmp.h"
 #include "bson-context.h"
 #include "bson-clock.h"
 #include "bson-decimal128.h"
@@ -506,7 +507,7 @@ bson_validate_with_error (const bson_t *bson,
  * The caller is responsible for freeing the resulting string. If @length is
  * non-NULL, then the length of the resulting string will be placed in @length.
  *
- * See http://docs.mongodb.org/manual/reference/mongodb-extended-json/ for
+ * See https://www.mongodb.com/docs/manual/reference/mongodb-extended-json/ for
  * more information on extended JSON.
  *
  * Returns: A newly allocated string that should be freed with bson_free().
@@ -530,7 +531,7 @@ bson_as_json_with_opts (const bson_t *bson,
  * The caller is responsible for freeing the resulting string. If @length is
  * non-NULL, then the length of the resulting string will be placed in @length.
  *
- * See http://docs.mongodb.org/manual/reference/mongodb-extended-json/ for
+ * See https://www.mongodb.com/docs/manual/reference/mongodb-extended-json/ for
  * more information on extended JSON.
  *
  * Returns: A newly allocated string that should be freed with bson_free().
@@ -569,7 +570,7 @@ bson_as_json (const bson_t *bson, size_t *length);
  * The caller is responsible for freeing the resulting string. If @length is
  * non-NULL, then the length of the resulting string will be placed in @length.
  *
- * See http://docs.mongodb.org/manual/reference/mongodb-extended-json/ for
+ * See https://www.mongodb.com/docs/manual/reference/mongodb-extended-json/ for
  * more information on extended JSON.
  *
  * Returns: A newly allocated string that should be freed with bson_free().
@@ -579,9 +580,17 @@ bson_as_relaxed_extended_json (const bson_t *bson, size_t *length);
 
 
 /* like bson_as_json() but for outermost arrays. */
-BSON_EXPORT (char *)
-bson_array_as_json (const bson_t *bson, size_t *length);
+BSON_EXPORT (char *) bson_array_as_json (const bson_t *bson, size_t *length);
 
+
+/* like bson_as_relaxed_extended_json() but for outermost arrays. */
+BSON_EXPORT (char *)
+bson_array_as_relaxed_extended_json (const bson_t *bson, size_t *length);
+
+
+/* like bson_as_canonical_extended_json() but for outermost arrays. */
+BSON_EXPORT (char *)
+bson_array_as_canonical_extended_json (const bson_t *bson, size_t *length);
 
 BSON_EXPORT (bool)
 bson_append_value (bson_t *bson,

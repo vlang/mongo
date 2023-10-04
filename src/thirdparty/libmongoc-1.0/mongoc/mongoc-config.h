@@ -36,9 +36,9 @@
 
 /* MONGOC_USER_SET_CFLAGS is set from config based on what compiler flags were
  * used to compile mongoc */
-#define MONGOC_USER_SET_CFLAGS "-g -O2  -flto=auto -ffat-lto-objects -flto=auto -ffat-lto-objects -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -Wall -Wdeclaration-after-statement -Wempty-body -Wformat -Wformat-nonliteral -Wformat-security -Winit-self -Winline -Wmissing-include-dirs -Wno-strict-aliasing -Wno-uninitialized -Wredundant-decls -Wshadow -Wswitch-default -Wswitch-enum -Wundef -Wuninitialized -Wexpansion-to-defined -pedantic"
+#define MONGOC_USER_SET_CFLAGS ""
 
-#define MONGOC_USER_SET_LDFLAGS "-Wl,-Bsymbolic-functions -flto=auto -ffat-lto-objects -flto=auto -Wl,-z,relro -Wl,-z,now -lpthread"
+#define MONGOC_USER_SET_LDFLAGS ""
 
 /* MONGOC_CC is used to determine what C compiler was used to compile mongoc */
 #define MONGOC_CC "/usr/bin/cc"
@@ -199,7 +199,7 @@
  * have SASL and its version is new enough to use sasl_client_done (),
  * which supersedes sasl_done ().
  */
-#define MONGOC_HAVE_SASL_CLIENT_DONE 0
+#define MONGOC_HAVE_SASL_CLIENT_DONE 1
 
 #if MONGOC_HAVE_SASL_CLIENT_DONE != 1
 #  undef MONGOC_HAVE_SASL_CLIENT_DONE
@@ -210,7 +210,7 @@
  * Disable automatic calls to mongoc_init() and mongoc_cleanup()
  * before main() is called, and after exit() (respectively).
  */
-#define MONGOC_NO_AUTOMATIC_GLOBALS 0
+#define MONGOC_NO_AUTOMATIC_GLOBALS 1
 
 #if MONGOC_NO_AUTOMATIC_GLOBALS != 1
 #  undef MONGOC_NO_AUTOMATIC_GLOBALS
@@ -304,7 +304,7 @@
  * Set if we have snappy compression support
  *
  */
-#define MONGOC_ENABLE_COMPRESSION_SNAPPY 1
+#define MONGOC_ENABLE_COMPRESSION_SNAPPY 0
 
 #if MONGOC_ENABLE_COMPRESSION_SNAPPY != 1
 #  undef MONGOC_ENABLE_COMPRESSION_SNAPPY
@@ -325,7 +325,7 @@
  * Set if we have zstd compression support
  *
  */
-#define MONGOC_ENABLE_COMPRESSION_ZSTD 1
+#define MONGOC_ENABLE_COMPRESSION_ZSTD 0
 
 #if MONGOC_ENABLE_COMPRESSION_ZSTD != 1
 #  undef MONGOC_ENABLE_COMPRESSION_ZSTD
@@ -392,7 +392,7 @@ enum {
  * Set if we have Client Side Encryption support.
  */
 
-#define MONGOC_ENABLE_CLIENT_SIDE_ENCRYPTION 1
+#define MONGOC_ENABLE_CLIENT_SIDE_ENCRYPTION 0
 
 #if MONGOC_ENABLE_CLIENT_SIDE_ENCRYPTION != 1
 #  undef MONGOC_ENABLE_CLIENT_SIDE_ENCRYPTION

@@ -1,5 +1,6 @@
 module mongo
 
+import os
 import x.json2
 
 struct Test {
@@ -10,7 +11,7 @@ struct Test {
 }
 
 fn test_collection() {
-	url := 'mongodb://127.0.0.1:27017/'
+	url := os.getenv_opt('DATABASE_URL') or { 'mongodb://127.0.0.1:27017/' }
 
 	client := new_client(url)
 
@@ -52,13 +53,13 @@ fn test_collection() {
 		'boolean': true
 		'foo':     child
 	})
-	assert collection.insert_one_from<Test>(test)
+	assert collection.insert_one_from[Test](test)
 	assert collection.insert_one_from_bson_t(json_bson)
 
 	for i in 0 .. 3 {
 		print(i)
-		collection.insert_one_from<Test>(test)
-		collection.insert_one_from<Test>(other_test)
+		collection.insert_one_from[Test](test)
+		collection.insert_one_from[Test](other_test)
 	}
 	assert collection.count({}) == 9
 	assert collection.count({
@@ -68,7 +69,7 @@ fn test_collection() {
 	lean_response_find := collection.find({
 		'str': 'string'
 	}).lean()
-	lean_response_find_from := collection.find_from<Test>(test_filter).lean()
+	lean_response_find_from := collection.find_from[Test](test_filter).lean()
 
 	lean_response_find_from_bson_t := collection.find_from_bson_t(bson_json_filter).lean()
 

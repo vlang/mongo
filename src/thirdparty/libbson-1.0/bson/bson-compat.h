@@ -130,6 +130,29 @@ typedef SSIZE_T ssize_t;
 #endif
 #endif
 
+/* Derive the maximum representable value of signed integer type T using the
+ * formula 2^(N - 1) - 1 where N is the number of bits in type T. This assumes
+ * T is represented using two's complement. */
+#define BSON_NUMERIC_LIMITS_MAX_SIGNED(T) \
+   ((T) ((((size_t) 0x01u) << (sizeof (T) * (size_t) CHAR_BIT - 1u)) - 1u))
+
+/* Derive the minimum representable value of signed integer type T as one less
+ * than the negation of its maximum representable value. This assumes T is
+ * represented using two's complement. */
+#define BSON_NUMERIC_LIMITS_MIN_SIGNED(T, max) ((T) ((-(max)) - 1))
+
+/* Derive the maximum representable value of unsigned integer type T by flipping
+ * all its bits to 1. */
+#define BSON_NUMERIC_LIMITS_MAX_UNSIGNED(T) ((T) (~((T) 0)))
+
+#ifndef SSIZE_MAX
+#define SSIZE_MAX BSON_NUMERIC_LIMITS_MAX_SIGNED (ssize_t)
+#endif
+
+#ifndef SSIZE_MIN
+#define SSIZE_MIN BSON_NUMERIC_LIMITS_MIN_SIGNED (ssize_t, SSIZE_MAX)
+#endif
+
 #if defined(__MINGW32__) && !defined(INIT_ONCE_STATIC_INIT)
 #define INIT_ONCE_STATIC_INIT RTL_RUN_ONCE_INIT
 typedef RTL_RUN_ONCE INIT_ONCE;
@@ -152,9 +175,9 @@ typedef signed char bool;
 #define bson_sync_synchronize() __sync_synchronize ()
 #elif defined(__i386__) || defined(__i486__) || defined(__i586__) || \
    defined(__i686__) || defined(__x86_64__)
-#define bson_sync_synchronize() asm volatile("mfence" ::: "memory")
+#define bson_sync_synchronize() asm volatile ("mfence" ::: "memory")
 #else
-#define bson_sync_synchronize() asm volatile("sync" ::: "memory")
+#define bson_sync_synchronize() asm volatile ("sync" ::: "memory")
 #endif
 #elif defined(_MSC_VER)
 #define bson_sync_synchronize() MemoryBarrier ()

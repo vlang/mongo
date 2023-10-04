@@ -30,8 +30,14 @@ jobs:
           sudo ./v symlink
       - name: Install Mongo dependencies
         run: |
-          cd ./vlib/mongo/
+          cd ./vlib/mongo/src
           sudo make install
+      - name: MongoDB Community Server
+        run: |
+          curl -LO https://repo.mongodb.org/apt/ubuntu/dists/focal/mongodb-org/7.0/multiverse/binary-amd64/mongodb-org-server_7.0.2_amd64.deb
+          sudo apt install -y ./mongodb-org-server_7.0.2_amd64.deb
+          mkdir -p data
+          mongod --dbpath data &
       - name: Test
         run: |
           cd ./vlib/mongo/
@@ -43,4 +49,7 @@ jobs:
       - name: Build Mongo example
         run: |
           cd ./vlib/mongo/examples/
-          v -prod example.v
+          v -prod count-example.v
+          v -prod find-example.v
+          v -prod find-lean-example.v
+          v -prod insert-example.v
