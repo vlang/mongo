@@ -32,3 +32,6 @@ pub struct C.mongoc_stream_t {}
 
 // http://mongoc.org/libmongoc/current/mongoc_stream_file_t.html
 pub struct C.mongoc_stream_file_t {}
+
+// https://mongoc.org/libmongoc/current/mongoc_bulk_operation_t.html
+pub struct C.mongoc_bulk_operation_t {}

@@ -13,7 +13,7 @@ fn C.bson_copy_to(&C.bson_t, &C.bson_t)
 fn C.bson_copy_to_excluding(&C.bson_t, &C.bson_t, byteptr)
 fn C.bson_count_keys(&C.bson_t) u32
 fn C.bson_equal(&C.bson_t, &C.bson_t) bool
-fn C.bson_get_data(&C.bson_t) byte
+fn C.bson_get_data(&C.bson_t) u8
 fn C.bson_has_field(&C.bson_t, byteptr) bool
 fn C.bson_free(voidptr)
 fn C.bson_as_canonical_extended_json(&C.bson_t, int) byteptr
@@ -30,7 +30,7 @@ fn C.bson_append_array_begin(&C.bson_t, byteptr, int, &C.bson_t) bool
 fn C.bson_append_array_end(&C.bson_t, &C.bson_t) bool
 
 // http://mongoc.org/libbson/current/bson_append_binary.html
-fn C.bson_append_binary(&C.bson_t, byteptr, int, &C.bson_subtype_t, &byte, u32) bool
+fn C.bson_append_binary(&C.bson_t, byteptr, int, &C.bson_subtype_t, &u8, u32) bool
 
 // http://mongoc.org/libbson/current/bson_append_bool.html
 fn C.bson_append_bool(&C.bson_t, byteptr, int, bool) bool
@@ -110,7 +110,7 @@ fn C.bson_oid_copy(&C.bson_oid_t, &C.bson_oid_t)
 fn C.bson_oid_equal(&C.bson_oid_t, &C.bson_oid_t) bool
 fn C.bson_oid_get_time_t(&C.bson_oid_t) int
 fn C.bson_oid_hash(&C.bson_oid_t) u32
-fn C.bson_oid_init_from_data(&C.bson_oid_t, byte)
+fn C.bson_oid_init_from_data(&C.bson_oid_t, u8)
 fn C.bson_oid_init_from_string(&C.bson_oid_t, byteptr)
 fn C.bson_iter_find_descendant(&&C.bson_iter_t, &&char, &&bson_iter_t)
 

@@ -13,7 +13,7 @@ pub fn (oid &C.bson_oid_t) init() {
 	C.bson_oid_init(oid, 0)
 }
 
-pub fn (oid &C.bson_oid_t) init_from_data(data byte) {
+pub fn (oid &C.bson_oid_t) init_from_data(data u8) {
 	C.bson_oid_init_from_data(oid, data)
 }
 
