@@ -35,7 +35,7 @@ jobs:
         run: |
           cd ./vlib/mongo/
           sudo apt update
-          make install
+          sudo make install
       - name: Start MongoDB
         uses: supercharge/mongodb-github-action@1.10.0
         with:
