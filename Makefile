@@ -8,8 +8,9 @@ build_mongo_c_driver:
 	cmake -DENABLE_AUTOMATIC_INIT_AND_CLEANUP=OFF .. && \
 	make && \
 	make install
+
 install:
-	apt install libbson-dev libmongoc-dev
+	apt install -y libbson-dev libmongoc-dev
 
 dev:
 	v -cg -shared watch .

@@ -1,4 +1,5 @@
-import mongo
+module mongo
+
 import x.json2
 
 struct Test {
@@ -9,12 +10,10 @@ struct Test {
 }
 
 fn test_collection() {
-	url := 'mongodb://127.0.0.1:27017/'
+	client := mongo.new_client('mongodb://127.0.0.1:27017/')
 
-	client := mongo.new_client(url)
-
-	client.get_database('vlang').drop()
-	collection := client.get_collection('vlang', 'mongo-test') // return &mongoc_cursor_t
+	//client.get_database('vlang').drop()
+	collection := client.get_collection('vlang', 'mongo-test')
 
 	test := Test{
 		str: 'string'
