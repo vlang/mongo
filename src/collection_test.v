@@ -51,7 +51,7 @@ fn test_collection() {
 		'boolean': true
 		'foo':     child
 	})
-	assert collection.insert_one_from<Test>(test)
+	assert collection.insert_one_from(test)
 	assert collection.insert_one_from_bson_t(json_bson)
 
 	for i in 0 .. 3 {

@@ -37,7 +37,7 @@ fn main() {
 		'foo':     child
 	})
 
-	collection.insert_one_from<Test>(test)
+	collection.insert_one_from(test)
 	collection.insert_one_from_bson_t(struct_bson)
 	collection.insert_one_from_bson_t(json_bson)
 

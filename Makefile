@@ -15,7 +15,10 @@ dev:
 	v -cg -shared watch .
 
 build:
-	v -shared .
+	v -shared -prod .
 
 test:
 	v test .
+
+test_watch:
+	v -stats -keepc -cg watch test . --only-watch=*.v,*.h

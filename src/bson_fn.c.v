@@ -1,5 +1,13 @@
 module mongo
 
+#flag -I @VMODROOT/thirdparty/libbson-1.0
+#flag -I @VMODROOT/thirdparty/libmongoc-1.0
+#flag -l mongoc-1.0
+#flag -l bson-1.0
+
+#include "mongoc/mongoc.h"
+#include "bson/bson.h"
+
 fn C.bson_new() &C.bson_t
 fn C.bson_new_from_json(byteptr, int, &C.bson_error_t) &C.bson_t
 fn C.bson_init_from_json(&C.bson_t, byteptr, int, &C.bson_error_t) bool
