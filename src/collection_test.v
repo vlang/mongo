@@ -1,5 +1,4 @@
-module mongo
-
+import mongo
 import x.json2
 
 struct Test {
@@ -12,7 +11,7 @@ struct Test {
 fn test_collection() {
 	url := 'mongodb://127.0.0.1:27017/'
 
-	client := new_client(url)
+	client := mongo.new_client(url)
 
 	client.get_database('vlang').drop()
 	collection := client.get_collection('vlang', 'mongo-test') // return &mongoc_cursor_t
@@ -38,9 +37,9 @@ fn test_collection() {
 		boolean: false
 	}
 
-	bson_json_filter := new_from_json('{"str":"string"}')
+	bson_json_filter := mongo.new_from_json('{"str":"string"}')
 
-	json_bson := new_from_json('{"str":"string","number":2,"float":2.1,"boolean":true}')
+	json_bson := mongo.new_from_json('{"str":"string","number":2,"float":2.1,"boolean":true}')
 
 	child := json2.Any({
 		'bar': json2.Any(10)

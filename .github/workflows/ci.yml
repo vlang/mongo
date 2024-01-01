@@ -70,7 +70,7 @@ jobs:
       - name: Install Mongo dependencies
         run: |
           cd ./vlib/mongo/
-          sudo make install
+          sudo make build_mongo_c_driver
       - name: Build Mongo shared lib
         run: |
           cd ./vlib/mongo/

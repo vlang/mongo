@@ -15,21 +15,27 @@ pub struct C.bson_oid_t {
 }
 
 // http://mongoc.org/libbson/current/bson_subtype_t.html
+@[typedef]
 pub struct C.bson_subtype_t {}
 
 // http://mongoc.org/libbson/current/bson_context_t.html
+@[typedef]
 pub struct C.bson_context_t {}
 
 // http://mongoc.org/libbson/current/bson_type_t.html
+@[typedef]
 pub struct C.bson_type_t {}
 
 // http://mongoc.org/libbson/current/bson_decimal128_t.html
+@[typedef]
 pub struct C.bson_decimal128_t {}
 
 // http://mongoc.org/libbson/current/bson_iter_t.html
+@[typedef]
 pub struct C.bson_iter_t {}
 
 // http://mongoc.org/libbson/current/bson_value_t.html
+@[typedef]
 pub struct C.bson_value_t {}
 
 // http://mongoc.org/libbson/current/bson_error_t.html
