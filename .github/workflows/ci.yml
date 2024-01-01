@@ -23,7 +23,7 @@ jobs:
       - name: Install Mongo dependencies
         run: |
           cd ./vlib/mongo/
-          sudo make install
+          make install
       - name: Start MongoDB
         uses: supercharge/mongodb-github-action@1.10.0
         with:
@@ -48,7 +48,7 @@ jobs:
       - name: Install Mongo dependencies
         run: |
           cd ./vlib/mongo/
-          sudo make install
+          make install
       - name: Build Mongo shared lib
         run: |
           cd ./vlib/mongo/
