@@ -14,7 +14,7 @@ pub fn (cursor &C.mongoc_cursor_t) limit(limit int) &C.mongoc_cursor_t {
 }
 
 // Get the next document parsing it with the arg struct type and setting it
-pub fn (cursor &C.mongoc_cursor_t) next<T>(mut t T) ?bool {
+pub fn (cursor &C.mongoc_cursor_t) next[T](mut t T) ?bool {
 	document := new_bson()
 	if !cursor.next_doc(&document) {
 		return false

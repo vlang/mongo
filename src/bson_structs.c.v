@@ -13,7 +13,7 @@ module mongo
 pub struct C.bson_t {
 	flags   u32 // Internal flags for the bson_t.
 	len     u32 // Length of BSON data.
-	padding u8 // Padding for stack allocation.
+	padding u8  // Padding for stack allocation.
 }
 
 // http://mongoc.org/libbson/current/bson_oid_t.html
