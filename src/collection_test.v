@@ -12,20 +12,19 @@ struct Test {
 fn test_collection() {
 	client := mongo.new_client('mongodb://127.0.0.1:27017/')
 
-	//client.get_database('vlang').drop()
 	collection := client.get_collection('vlang', 'mongo-test')
 
 	test := Test{
 		str: 'string'
-		number: int(2)
-		float: f64(2.1)
+		number: 2
+		float: 2.1
 		boolean: true
 	}
 
 	test_filter := Test{
 		str: 'string'
-		number: int(2)
-		float: f64(2.1)
+		number: 2
+		float: 2.1
 		boolean: true
 	}
 
@@ -54,19 +53,43 @@ fn test_collection() {
 	assert collection.insert_one_from_bson_t(json_bson)
 
 	for i in 0 .. 3 {
-		print(i)
-		collection.insert_one_from[Test](test)
-		collection.insert_one_from[Test](other_test)
+		collection.insert_one_from(test)
+		collection.insert_one_from(other_test)
 	}
 	assert collection.count({}) == 9
-	assert collection.count({
-		'str': 'string'
-	}) == 5
+	assert collection.count({'str': 'string'}) == 5
+}
 
-	lean_response_find := collection.find({
-		'str': 'string'
-	}).lean()
-	lean_response_find_from := collection.find_from[Test](test_filter).lean()
+fn test_lean() {
+	client := mongo.new_client('mongodb://127.0.0.1:27017/')
+
+	collection := client.get_collection('vlang', 'mongo-test')
+
+	bson_json_filter := mongo.new_from_json('{"str":"string"}')
+
+	test := Test{
+		str: 'string'
+		number: 2
+		float: 2.1
+		boolean: true
+	}
+
+	test_filter := Test{
+		str: 'string'
+		number: 2
+		float: 2.1
+		boolean: true
+	}
+
+	other_test := Test{
+		str: 'random'
+		number: 77
+		float: 985.36
+		boolean: false
+	}
+
+	lean_response_find := collection.find({'str': 'string'}).lean()
+	lean_response_find_from := collection.find_from(test_filter).lean()
 
 	lean_response_find_from_bson_t := collection.find_from_bson_t(bson_json_filter).lean()
 
@@ -129,7 +152,9 @@ fn test_collection() {
 	// assert response_with_paginate2.len == 1
 	assert response_with_paginate3.len == 5
 	assert response_with_paginate4.len == 5
+}
 
-	client.get_database('vlang').drop()
-	client.destroy()
+fn test_drop() {
+	client := mongo.new_client('mongodb://127.0.0.1:27017/')
+	//client.get_database('vlang').drop()
 }
