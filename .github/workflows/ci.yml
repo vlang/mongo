@@ -11,26 +11,15 @@ on:
 jobs:
   tests:
     runs-on: ubuntu-latest
+    container: thevlang/vlang:debian-dev
     strategy:
       matrix:
         mongodb-version: ['4.2', '4.4', '5.0', '6.0', '7.0']
     steps:
-      - name: Checkout V
-        uses: actions/checkout@v2
-        with:
-          repository: vlang/v
       - name: Checkout Mongo
         uses: actions/checkout@v2
         with:
           path: vlib/mongo
-      - name: Install V dependencies
-        run: |
-          sudo apt-get update
-          sudo apt-get install --quiet -y libglfw3-dev libxi-dev libxcursor-dev
-      - name: Build V
-        run: |
-          make
-          sudo ./v symlink
       - name: Install Mongo dependencies
         run: |
           cd ./vlib/mongo/
@@ -50,23 +39,12 @@ jobs:
 
   build:
     runs-on: ubuntu-latest
+    container: thevlang/vlang:debian-dev
     steps:
-      - name: Checkout V
-        uses: actions/checkout@v2
-        with:
-          repository: vlang/v
       - name: Checkout Mongo
         uses: actions/checkout@v2
         with:
           path: vlib/mongo
-      - name: Install V dependencies
-        run: |
-          sudo apt-get update
-          sudo apt-get install --quiet -y libglfw3-dev libxi-dev libxcursor-dev
-      - name: Build V
-        run: |
-          make
-          sudo ./v symlink
       - name: Install Mongo dependencies
         run: |
           cd ./vlib/mongo/
