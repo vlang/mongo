@@ -16,3 +16,6 @@ dev:
 
 build:
 	v -shared .
+
+test:
+	v test .
