@@ -18,7 +18,7 @@ build:
 	v -shared -prod .
 
 test:
-	v test .
+	v -stats test .
 
 test_watch:
 	v -stats -keepc -cg watch test . --only-watch=*.v,*.h
