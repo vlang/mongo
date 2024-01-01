@@ -3,7 +3,7 @@ module mongo
 import json
 import x.json2
 
-[inline]
+@[inline]
 pub fn (cursor &C.mongoc_cursor_t) next_doc(document &&C.bson_t) bool {
 	return C.mongoc_cursor_next(cursor, document)
 }
@@ -59,7 +59,7 @@ pub fn (cursor &C.mongoc_cursor_t) skip(skip int) &C.mongoc_cursor_t {
 		return unsafe { cursor }
 	}
 
-	document := &C.bson_t{}
+	document := C.bson_t{}
 
 	mut count := skip
 	for C.mongoc_cursor_next(cursor, &document) {

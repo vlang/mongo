@@ -2,7 +2,7 @@ module mongo
 
 import os
 
-[inline]
+@[inline]
 pub fn new_stream_file(file os.File) &C.mongoc_stream_file_t {
 	return C.mongoc_stream_file_new(file.fd)
 }
