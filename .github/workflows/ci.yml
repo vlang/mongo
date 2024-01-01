@@ -60,7 +60,7 @@ jobs:
       - name: Install Mongo dependencies
         run: |
           cd ./vlib/mongo/
-          sudo apt update
+          apt update
           make install
       - name: Build Mongo shared lib
         run: |
