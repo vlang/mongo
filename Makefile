@@ -9,7 +9,7 @@ build_mongo_c_driver:
 	make && \
 	make install
 install:
-	apt install libbson-1.0-0 libmongoc-1.0-0
+	apt install libbson-dev libmongoc-dev
 
 dev:
 	v -cg -shared watch .
