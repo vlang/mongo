@@ -1,2 +1,3 @@
 ./*.so
 mongo-c-driver*
+mongo.so

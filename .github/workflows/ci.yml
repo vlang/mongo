@@ -34,7 +34,7 @@ jobs:
       - name: Install Mongo dependencies
         run: |
           cd ./vlib/mongo/
-          sudo make install
+          sudo make build_mongo_c_driver
       - name: Start MongoDB
         uses: supercharge/mongodb-github-action@1.10.0
         with:
