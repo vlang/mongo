@@ -9,7 +9,7 @@ fn main() {
 	client := mongo.new_client(url)
 
 	mut dt := sw.elapsed().microseconds()
-	println('Elapsed time (new_client): $dt uS') // Elapsed time (new_client): 38 uS
+	println('Elapsed time (new_client): ${dt} uS') // Elapsed time (new_client): 38 uS
 
 	collection := client.get_collection('test', 'mongo-test')
 

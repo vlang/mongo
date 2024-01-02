@@ -9,11 +9,11 @@ pub fn new_bson() &C.bson_t {
 
 @[inline]
 pub fn new_bson_oid_filter(_oid string) &C.bson_t {
-	return new_from_json('{"_id": {"\$oid": "$_oid"}}')
+	return new_from_json('{"_id": {"\$oid": "${_oid}"}}')
 }
 
 @[inline]
-pub fn new_bson_from<T>(t T) &C.bson_t {
+pub fn new_bson_from[T](t T) &C.bson_t {
 	json_data := json.encode(t)
 	error := C.bson_error_t{}
 	bson := C.bson_new_from_json(json_data.str, json_data.len, &error)
@@ -37,10 +37,12 @@ pub fn (document &C.bson_t) reinit() {
 	C.bson_reinit(document)
 }
 
+@[unsafe]
 pub fn (document &C.bson_t) destroy() {
 	C.bson_destroy(document)
 }
 
+@[unsafe]
 pub fn free(mem voidptr) {
 	C.bson_free(mem)
 }
@@ -109,8 +111,8 @@ pub fn (document &C.bson_t) equal(b &C.bson_t) bool {
 	return C.bson_equal(document, b)
 }
 
-pub fn (document &C.bson_t) to<T>() ?T {
+pub fn (document &C.bson_t) to[T]() ?T {
 	doc := document.str()
-	println('tp: $doc')
+	println('tp: ${doc}')
 	return json.decode(T, doc)
 }
