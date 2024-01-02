@@ -37,10 +37,12 @@ pub fn (document &C.bson_t) reinit() {
 	C.bson_reinit(document)
 }
 
+@[unsafe]
 pub fn (document &C.bson_t) destroy() {
 	C.bson_destroy(document)
 }
 
+@[unsafe]
 pub fn free(mem voidptr) {
 	C.bson_free(mem)
 }

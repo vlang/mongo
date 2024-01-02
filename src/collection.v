@@ -8,7 +8,9 @@ pub fn (collection &C.mongoc_collection_t) count(filter map[string]json2.Any) i6
 	filter_bson_t := new_from_json(json_data)
 
 	defer {
-		filter_bson_t.destroy()
+		unsafe {
+			filter_bson_t.destroy()
+		}
 	}
 
 	return C.mongoc_collection_count_documents(collection, filter_bson_t, 0, 0, 0, 0)
@@ -28,7 +30,9 @@ pub fn (collection &C.mongoc_collection_t) insert_one(document map[string]json2.
 	document_bson_t := new_from_json(json_data)
 
 	defer {
-		document_bson_t.destroy()
+		unsafe {
+			document_bson_t.destroy()
+		}
 	}
 	error := C.bson_error_t{}
 	reply := new_bson()
@@ -44,7 +48,9 @@ pub fn (collection &C.mongoc_collection_t) insert_one(document map[string]json2.
 pub fn (collection &C.mongoc_collection_t) insert_one_from[T](t T) bool {
 	document_bson_t := new_bson_from(t)
 	defer {
-		document_bson_t.destroy()
+		unsafe {
+			document_bson_t.destroy()
+		}
 	}
 	error := C.bson_error_t{}
 	reply := new_bson()
@@ -85,19 +91,22 @@ pub fn (collection &C.mongoc_collection_t) find(query map[string]json2.Any) &C.m
 	query_bson_t := new_from_json(json_data)
 
 	defer {
-		query_bson_t.destroy()
+		unsafe {
+			query_bson_t.destroy()
+		}
 	}
 
 	// dt = sw.elapsed().microseconds()
 	// println('Elapsed time (C.bson_new_from_json): $dt uS') // Elapsed time (C.bson_new_from_json): 27 uS
-	return C.mongoc_collection_find(collection, 0, 0, 0, 0, query_bson_t, unsafe { nil },
-		unsafe { nil })
+	return C.mongoc_collection_find(collection, 0, 0, 0, 0, query_bson_t, unsafe { nil }, unsafe { nil })
 }
 
 pub fn (collection &C.mongoc_collection_t) find_from[T](t T) &C.mongoc_cursor_t {
 	query_bson_t := new_bson_from(t)
 	defer {
-		query_bson_t.destroy()
+		unsafe {
+			query_bson_t.destroy()
+		}
 	}
 	return C.mongoc_collection_find(collection, 0, 0, 0, 0, query_bson_t, unsafe { nil },
 		unsafe { nil })

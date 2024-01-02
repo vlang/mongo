@@ -38,7 +38,7 @@ pub fn (cursor &C.mongoc_cursor_t) lean() []json2.Any {
 	document := new_bson()
 	reply := new_bson()
 
-	mut error := C.bson_error_t{}
+	mut error := &C.bson_error_t{}
 
 	for C.mongoc_cursor_next(cursor, &document) {
 		json_doc := document.str()
@@ -46,7 +46,7 @@ pub fn (cursor &C.mongoc_cursor_t) lean() []json2.Any {
 		response << raw_mp.as_map()
 	}
 
-	if C.mongoc_cursor_error_document(cursor, &error, &reply) {
+	if C.mongoc_cursor_error_document(cursor, error, &reply) {
 		unsafe { println(C.bson_as_json(reply, 0).vstring()) }
 		panic(error)
 	}
@@ -59,16 +59,18 @@ pub fn (cursor &C.mongoc_cursor_t) skip(skip int) &C.mongoc_cursor_t {
 		return unsafe { cursor }
 	}
 
-	document := C.bson_t{}
+	mut document := &C.bson_t{}
 
 	mut count := skip
-	for C.mongoc_cursor_next(cursor, &document) {
+	for C.mongoc_cursor_next(cursor, document) {
 		count--
 		if count == 0 {
 			break
 		}
 	}
-	document.destroy()
+	unsafe {
+		document.destroy()
+	}
 	// // FIXME - it not possible set limit after .skip()
 	// unsafe{println("Set try >>>>>>>>>>> ${C.mongoc_cursor_set_limit(cursor, 1)}")}
 

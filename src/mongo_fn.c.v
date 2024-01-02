@@ -37,7 +37,7 @@ fn C.mongoc_client_pool_push(&C.mongoc_client_pool_t, &C.mongoc_client_t)
 fn C.mongoc_client_pool_destroy(&C.mongoc_client_pool_t)
 
 @[trusted]
-fn C.mongoc_client_get_database(&C.mongoc_client_t, byteptr) &C.mongoc_database_t
+fn C.mongoc_client_get_database(&C.mongoc_client_t, &char) &C.mongoc_database_t
 @[trusted]
 fn C.mongoc_client_get_collection(&C.mongoc_client_t, byteptr, byteptr) &C.mongoc_collection_t
 @[trusted]

@@ -18,7 +18,7 @@ pub fn (client &C.mongoc_client_t) set_appname(name string) bool {
 }
 
 pub fn (client &C.mongoc_client_t) get_database(db_name string) &C.mongoc_database_t {
-	return C.mongoc_client_get_database(client, db_name.str)
+	return C.mongoc_client_get_database(client, &char(db_name.str))
 }
 
 pub fn (client &C.mongoc_client_t) get_collection(db_name string, collection_name string) &C.mongoc_collection_t {
