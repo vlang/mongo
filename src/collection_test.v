@@ -11,11 +11,9 @@ struct Test {
 
 fn test_collection() {
 	client := mongo.new_client('mongodb://127.0.0.1:27017/')
-	collection := client.get_collection('vlang', 'mongo-test')
+	client.get_database('vlang').drop()
 
-	defer {
-		client.get_database('vlang').drop()
-	}
+	collection := client.get_collection('vlang', 'mongo-test')
 
 	test := Test{
 		str: 'string'
@@ -38,9 +36,6 @@ fn test_collection() {
 		boolean: false
 	}
 
-	bson_json_filter := mongo.new_from_json('{"str":"string"}')
-
-	json_bson := mongo.new_from_json('{"str":"string","number":2,"float":2.1,"boolean":true}')
 
 	child := json2.Any({
 		'bar': json2.Any(10)
@@ -53,6 +48,8 @@ fn test_collection() {
 		'foo':     child
 	})
 	assert collection.insert_one_from(test)
+
+	json_bson := mongo.new_from_json('{"str":"string","number":2,"float":2.1,"boolean":true}')
 	assert collection.insert_one_from_bson_t(json_bson)
 
 	for i in 0 .. 3 {
@@ -66,6 +63,7 @@ fn test_collection() {
 	lean_response_find := collection.find({'str': 'string'}).lean()
 	lean_response_find_from := collection.find_from(test_filter).lean()
 
+	bson_json_filter := mongo.new_from_json('{"str":"string"}')
 	lean_response_find_from_bson_t := collection.find_from_bson_t(bson_json_filter).lean()
 
 	// // TODO - when https://github.com/vlang/v/issues/15923 be fixed
