@@ -22,7 +22,7 @@ fn main() {
 		boolean: true
 	}
 
-	struct_bson := mongo.new_bson_from<Test>(test)
+	struct_bson := mongo.new_bson_from[Test](test)
 	json_bson := mongo.new_from_json('{"str":"string","number":2,"float":2.1,"boolean":true}')
 
 	child := json2.Any({
@@ -37,7 +37,7 @@ fn main() {
 		'foo':     child
 	})
 
-	collection.insert_one_from<Test>(test)
+	collection.insert_one_from(test)
 	collection.insert_one_from_bson_t(struct_bson)
 	collection.insert_one_from_bson_t(json_bson)
 

@@ -8,14 +8,16 @@ pub fn (collection &C.mongoc_collection_t) count(filter map[string]json2.Any) i6
 	filter_bson_t := new_from_json(json_data)
 
 	defer {
-		filter_bson_t.destroy()
+		unsafe {
+			filter_bson_t.destroy()
+		}
 	}
 
 	return C.mongoc_collection_count_documents(collection, filter_bson_t, 0, 0, 0, 0)
 }
 
-pub fn (collection &C.mongoc_collection_t) count_from<T>(t T) i64 {
-	filter_bson_t := new_bson_from<T>(t)
+pub fn (collection &C.mongoc_collection_t) count_from[T](t T) i64 {
+	filter_bson_t := new_bson_from[T](t)
 	return C.mongoc_collection_count_documents(collection, filter_bson_t, 0, 0, 0, 0)
 }
 
@@ -28,7 +30,9 @@ pub fn (collection &C.mongoc_collection_t) insert_one(document map[string]json2.
 	document_bson_t := new_from_json(json_data)
 
 	defer {
-		document_bson_t.destroy()
+		unsafe {
+			document_bson_t.destroy()
+		}
 	}
 	error := C.bson_error_t{}
 	reply := new_bson()
@@ -41,10 +45,12 @@ pub fn (collection &C.mongoc_collection_t) insert_one(document map[string]json2.
 	return result
 }
 
-pub fn (collection &C.mongoc_collection_t) insert_one_from<T>(t T) bool {
-	document_bson_t := new_bson_from<T>(t)
+pub fn (collection &C.mongoc_collection_t) insert_one_from[T](t T) bool {
+	document_bson_t := new_bson_from(t)
 	defer {
-		document_bson_t.destroy()
+		unsafe {
+			document_bson_t.destroy()
+		}
 	}
 	error := C.bson_error_t{}
 	reply := new_bson()
@@ -85,19 +91,22 @@ pub fn (collection &C.mongoc_collection_t) find(query map[string]json2.Any) &C.m
 	query_bson_t := new_from_json(json_data)
 
 	defer {
-		query_bson_t.destroy()
+		unsafe {
+			query_bson_t.destroy()
+		}
 	}
 
 	// dt = sw.elapsed().microseconds()
 	// println('Elapsed time (C.bson_new_from_json): $dt uS') // Elapsed time (C.bson_new_from_json): 27 uS
-	return C.mongoc_collection_find(collection, 0, 0, 0, 0, query_bson_t, unsafe { nil },
-		unsafe { nil })
+	return C.mongoc_collection_find(collection, 0, 0, 0, 0, query_bson_t, unsafe { nil }, unsafe { nil })
 }
 
-pub fn (collection &C.mongoc_collection_t) find_from<T>(t T) &C.mongoc_cursor_t {
-	query_bson_t := new_bson_from<T>(t)
+pub fn (collection &C.mongoc_collection_t) find_from[T](t T) &C.mongoc_cursor_t {
+	query_bson_t := new_bson_from(t)
 	defer {
-		query_bson_t.destroy()
+		unsafe {
+			query_bson_t.destroy()
+		}
 	}
 	return C.mongoc_collection_find(collection, 0, 0, 0, 0, query_bson_t, unsafe { nil },
 		unsafe { nil })
@@ -143,33 +152,33 @@ pub fn (collection &C.mongoc_collection_t) destroy() {
 }
 
 //*   sugar fn   *
-pub fn (collection &C.mongoc_collection_t) insert<T>(t T) bool {
+pub fn (collection &C.mongoc_collection_t) insert[T](t T) bool {
 	document := new_bson_from(t)
 
 	return C.mongoc_collection_insert_one(collection, document, 0, 0, 0)
 }
 
-pub fn (collection &C.mongoc_collection_t) replaceone<T>(oid string, t T) bool {
+pub fn (collection &C.mongoc_collection_t) replaceone[T](oid string, t T) bool {
 	selector := new_bson_oid_filter(oid)
-	return collection.replace<T>(selector, t)
+	return collection.replace[T](selector, t)
 }
 
-pub fn (collection &C.mongoc_collection_t) replace<T>(selector &C.bson_t, t T) bool {
+pub fn (collection &C.mongoc_collection_t) replace[T](selector &C.bson_t, t T) bool {
 	document := new_bson_from(t)
 	return C.mongoc_collection_replace_one(collection, selector, document, 0, 0, 0)
 }
 
-pub fn (collection &C.mongoc_collection_t) replace_opts<T>(selector &C.bson_t, opts &C.bson_t, t T) bool {
+pub fn (collection &C.mongoc_collection_t) replace_opts[T](selector &C.bson_t, opts &C.bson_t, t T) bool {
 	document := new_bson_from(t)
 	return C.mongoc_collection_replace_one(collection, selector, document, opts, 0, 0)
 }
 
-pub fn (collection &C.mongoc_collection_t) update<T>(selector &C.bson_t, t T) bool {
+pub fn (collection &C.mongoc_collection_t) update[T](selector &C.bson_t, t T) bool {
 	document := new_bson_from(t)
 	return C.mongoc_collection_update_one(collection, selector, document, 0, 0, 0)
 }
 
-pub fn (collection &C.mongoc_collection_t) update_opts<T>(selector &C.bson_t, opts &C.bson_t, t T) bool {
+pub fn (collection &C.mongoc_collection_t) update_opts[T](selector &C.bson_t, opts &C.bson_t, t T) bool {
 	document := new_bson_from(t)
 	return C.mongoc_collection_update_one(collection, selector, document, opts, 0, 0)
 }

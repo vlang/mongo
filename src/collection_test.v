@@ -10,24 +10,22 @@ struct Test {
 }
 
 fn test_collection() {
-	url := 'mongodb://127.0.0.1:27017/'
-
-	client := new_client(url)
-
+	client := mongo.new_client('mongodb://127.0.0.1:27017/')
 	client.get_database('vlang').drop()
-	collection := client.get_collection('vlang', 'mongo-test') // return &mongoc_cursor_t
+
+	collection := client.get_collection('vlang', 'mongo-test')
 
 	test := Test{
 		str: 'string'
-		number: int(2)
-		float: f64(2.1)
+		number: 2
+		float: 2.1
 		boolean: true
 	}
 
 	test_filter := Test{
 		str: 'string'
-		number: int(2)
-		float: f64(2.1)
+		number: 2
+		float: 2.1
 		boolean: true
 	}
 
@@ -38,9 +36,6 @@ fn test_collection() {
 		boolean: false
 	}
 
-	bson_json_filter := new_from_json('{"str":"string"}')
-
-	json_bson := new_from_json('{"str":"string","number":2,"float":2.1,"boolean":true}')
 
 	child := json2.Any({
 		'bar': json2.Any(10)
@@ -52,24 +47,23 @@ fn test_collection() {
 		'boolean': true
 		'foo':     child
 	})
-	assert collection.insert_one_from<Test>(test)
+	assert collection.insert_one_from(test)
+
+	json_bson := mongo.new_from_json('{"str":"string","number":2,"float":2.1,"boolean":true}')
 	assert collection.insert_one_from_bson_t(json_bson)
 
 	for i in 0 .. 3 {
-		print(i)
-		collection.insert_one_from<Test>(test)
-		collection.insert_one_from<Test>(other_test)
+		collection.insert_one_from(test)
+		collection.insert_one_from(other_test)
 	}
+
 	assert collection.count({}) == 9
-	assert collection.count({
-		'str': 'string'
-	}) == 5
+	assert collection.count({'str': 'string'}) == 5
 
-	lean_response_find := collection.find({
-		'str': 'string'
-	}).lean()
-	lean_response_find_from := collection.find_from<Test>(test_filter).lean()
+	lean_response_find := collection.find({'str': 'string'}).lean()
+	lean_response_find_from := collection.find_from(test_filter).lean()
 
+	bson_json_filter := mongo.new_from_json('{"str":"string"}')
 	lean_response_find_from_bson_t := collection.find_from_bson_t(bson_json_filter).lean()
 
 	// // TODO - when https://github.com/vlang/v/issues/15923 be fixed
@@ -110,13 +104,13 @@ fn test_collection() {
 
 	find_cursor_to_be_paginate := collection.find(find_cursor_to_be_paginate_filter)
 	find_cursor_to_be_paginate1 := collection.find(find_cursor_to_be_paginate_filter)
-	find_cursor_to_be_paginate2 := collection.find(find_cursor_to_be_paginate_filter)
+	//find_cursor_to_be_paginate2 := collection.find(find_cursor_to_be_paginate_filter)
 	find_cursor_to_be_paginate3 := collection.find(find_cursor_to_be_paginate_filter)
 	find_cursor_to_be_paginate4 := collection.find(find_cursor_to_be_paginate_filter)
 
 	find_cursor_to_be_paginate.limit(2)
 	find_cursor_to_be_paginate1.skip(2)
-	find_cursor_to_be_paginate2.skip(2).limit(1) // FIXME - It is not possible use skip and limit together
+	//find_cursor_to_be_paginate2.skip(2).limit(1) // FIXME - It is not possible use skip and limit together
 	find_cursor_to_be_paginate3.skip(0)
 	find_cursor_to_be_paginate4.limit(0)
 
@@ -131,7 +125,10 @@ fn test_collection() {
 	// assert response_with_paginate2.len == 1
 	assert response_with_paginate3.len == 5
 	assert response_with_paginate4.len == 5
+}
 
+fn test_drop() {
+	client := mongo.new_client('mongodb://127.0.0.1:27017/')
 	client.get_database('vlang').drop()
-	client.destroy()
+	assert true
 }
