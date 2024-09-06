@@ -59,6 +59,7 @@ pub fn (cursor &C.mongoc_cursor_t) skip(skip int) &C.mongoc_cursor_t {
 		return unsafe { cursor }
 	}
 
+	// Do not free this document, it's used with whe cursor and used with the pointer of the current document of the cursor
 	mut document := &C.bson_t{}
 
 	mut count := skip
