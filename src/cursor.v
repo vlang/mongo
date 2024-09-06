@@ -68,9 +68,6 @@ pub fn (cursor &C.mongoc_cursor_t) skip(skip int) &C.mongoc_cursor_t {
 			break
 		}
 	}
-	unsafe {
-		document.destroy()
-	}
 	// // FIXME - it not possible set limit after .skip()
 	// unsafe{println("Set try >>>>>>>>>>> ${C.mongoc_cursor_set_limit(cursor, 1)}")}
 
