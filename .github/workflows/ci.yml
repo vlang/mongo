@@ -12,6 +12,7 @@ jobs:
   tests:
     runs-on: ubuntu-latest
     continue-on-error: true
+    timeout-minutes: 5
     strategy:
       matrix:
         mongodb-version: ["4.2", "4.4", "5.0", "6.0", "7.0"]
