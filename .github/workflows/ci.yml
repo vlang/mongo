@@ -48,8 +48,8 @@ jobs:
           make test
       - name: Build Mongo example
         run: |
-          cd ../examples/
-          v -prod example.v
+          cd ./vlib/mongo/examples/
+          v -prod count-example.v
 
   build:
     runs-on: ubuntu-latest
